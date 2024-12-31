@@ -6,10 +6,10 @@ Dev.to souhaite mettre en place un système complet de gestion de contenu permet
 * Créer une plateforme collaborative où les développeurs et passionnés de technologie peuvent s'inscrire, écrire et partager des articles.
 * Naviguer de manière optimisée pour découvrir du contenu de qualité grâce à un système de catégories et de tags performant.
 * Fournir un tableau de bord pour les administrateurs afin de gérer les utilisateurs, articles, catégories, et tags, tout en ayant accès à des statistiques précises sur l'utilisation du site.
-* 
-##Technologies Requises
-**Langage** : PHP 8 (Programmation Orientée Objet).
-**Base de Données** : PDO (PHP Data Objects) pour interagir avec la base de données.
+
+## Technologies Requises
+- **Langage** : PHP 8 (Programmation Orientée Objet).
+- **Base de Données** : PDO (PHP Data Objects) pour interagir avec la base de données.
 
 ## Fonctionnalités Principales
 ### Back Office (Administrateurs)
@@ -20,22 +20,22 @@ Dev.to souhaite mettre en place un système complet de gestion de contenu permet
 - **Voir Statistiques et Tableau de Bord**
   
 ### Front Office (Utilisateurs)
-**Inscription et Connexion**
+- **Inscription et Connexion**
 - Création de compte avec des informations de base : nom, e-mail, mot de passe.
 - Connexion sécurisée avec redirection selon le rôle (admin vers le tableau de bord, utilisateur vers la page d'accueil).
-**Navigation et Recherche**
+- **Navigation et Recherche**
 - Barre de recherche interactive pour trouver des articles, catégories ou tags.
 - Navigation dynamique entre les articles et les catégories.
-**Affichage du Contenu**
+- **Affichage du Contenu**
 - Derniers articles ajoutés, affichés sur la page d'accueil ou une section dédiée.
 - Dernières catégories ajoutées ou mises à jour, affichées pour une découverte rapide.
 - Redirection vers une page unique d’article pour afficher son contenu, ses catégories et tags associés, ainsi que les informations sur l'auteur.
-**Espace Auteur**
+- **Espace Auteur**
 - Création, modification et suppression d'articles.
 - Association d’une seule catégorie et de plusieurs tags à un article.
 - Gestion des articles publiés depuis un tableau de bord personnel.
 
-##Installation
+## Installation
 **Cloner le dépôt** :
    ```bash
    git clone https://github.com/Salma-007/Dev-to-Blogging-brief.git
