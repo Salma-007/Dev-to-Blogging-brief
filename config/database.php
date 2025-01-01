@@ -1,20 +1,34 @@
 <?php
+require_once '../vendor/autoload.php';
+
 use Dotenv\Dotenv;
-require '../vendor/autoload.php';
-$dotenv = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
-/**
- * Connect to a MySQL database using the mysqli extension.
- *
- * This function establishes a connection to a MySQL database. If the
- * connection fails, it logs an error and terminates the program.
- *
- * @return A MySQLi connection object.
- */
-$con = mysqli_connect($_ENV['DB_SERVER'],$_ENV['DB_USERNAME'],$_ENV['DB_PASSWORD'],$_ENV['DB_NAME']);
 
+class Database {
+    private static $connection;
 
-// if($con){
-// echo"Connected successfully";
-// }
+    public static function connect() {
+        if (!self::$connection) {
+            $dotenv = Dotenv::createImmutable(__DIR__);
+            $dotenv->load();
+
+            $host = $_ENV['DB_SERVER'];
+            $dbname = $_ENV['DB_NAME'];
+            $user = $_ENV['DB_USERNAME'];
+            $password = $_ENV['DB_PASSWORD'];
+
+            try {
+                self::$connection = new PDO(
+                    "mysql:host=$host;dbname=$dbname",
+                    $user,
+                    $password
+                );
+                self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+            }
+        }
+        return self::$connection;
+    }
+}
+
 ?>
