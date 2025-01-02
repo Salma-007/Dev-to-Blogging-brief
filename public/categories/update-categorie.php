@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stylecategorie.css">
 
     <!-- Custom styles for this page -->
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -248,57 +249,31 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php 
+                        use App\config\Database;
+                        use App\Categorie;
+                        require "../../vendor/autoload.php";
+                        $conn = Database::connect();
+                        $categorie =  new Categorie(null,null,$_GET['id_categorie']);
+                        $categorie->getcategorie($conn);
+                        // var_dump($categorie);
+                    ?>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Categories</h1> 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">table</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">update: </h6>
                         </div>
-                        <?php 
-                        // require_once __DIR__ . '/../../vendor/autoload.php';
-                        use App\config\Database;
-                        use App\Categorie;
-                        require "../../vendor/autoload.php";
-                        // include realpath(dirname(__FILE__)."../config/database.php");
-                        // include realpath(dirname(__FILE__)."../classes/categorie.php");
-                        $conn = Database::connect();
-                        $categories = Categorie::getAllCategories($conn);
-                        ?>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>description</th>
-                                            <th>update</th>
-                                            <th>delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th>Name</th>
-                                            <th>description</th>
-                                            <th>update</th>
-                                            <th>delete</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <?php foreach($categories as $categorie): ?>
-                                        <tr>
-                                            <td><?php  echo $categorie['nom_category'];?></td>
-                                            <td><?php  echo $categorie['description'];?></td>
-                                            <td><a href="update-categorie.php?id_categorie=<?php echo htmlspecialchars($categorie['id']); ?>" class="btn btn-primary" >update</a></td>
-                                            <td><a href="controller-categorie.php?action=delete&id=<?php echo htmlspecialchars($categorie['id']); ?>" class="btn btn-danger">delete</a></td>
-                                            
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            <form method="POST" action="controller-categorie.php">
+                            <label for="name">Nom de la catégorie</label>
+                            <input type="text" name="category_name" id="name" value= <?php echo $categorie['nom_category']; ?> required>
+
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" value= <?php echo $categorie['description']; ?> required></textarea>
+
+                            <button type="submit" name="add_category">Update</button>
+                    </form>
                     </div>
 
                 </div>

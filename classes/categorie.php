@@ -55,6 +55,15 @@ class Categorie{
         $stmt->execute(['id' => $this->id]);
     }
 
+    // recupere un article
+    public function getcategorie($db){
+        $sql = "SELECT * FROM categories WHERE id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
+        var_dump($stmt->fetch(PDO::FETCH_ASSOC));
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     // recuperation de toutes les catégories
     public static function getAllCategories($db) {
         $sql = "SELECT * FROM categories";
