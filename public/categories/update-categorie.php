@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -250,16 +252,19 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                 <?php 
+                        
+                        // var_dump($categorie);
+                    ?>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Categories</h1> 
+                    <?php
                         use App\config\Database;
                         use App\Categorie;
                         require "../../vendor/autoload.php";
                         $conn = Database::connect();
                         $categorie =  new Categorie(null,null,$_GET['id_categorie']);
-                        $categorie->getcategorie($conn);
-                        // var_dump($categorie);
+                        $values = $categorie->getcategorie($conn);
                     ?>
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Categories</h1> 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -267,12 +272,14 @@
                         </div>
                             <form method="POST" action="controller-categorie.php">
                             <label for="name">Nom de la catégorie</label>
-                            <input type="text" name="category_name" id="name" value= <?php echo $categorie['nom_category']; ?> required>
+                            <input type="hidden" name="id" id="name" value=<?php echo $values['id']; ?> required>
+
+                            <input type="text" name="category_name" id="name" value=<?php echo $values['nom_category']; ?> required>
 
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" value= <?php echo $categorie['description']; ?> required></textarea>
+                            <textarea name="description" id="description" required><?php echo $values['description']; ?></textarea>
 
-                            <button type="submit" name="add_category">Update</button>
+                            <button type="submit" name="update_category">Update</button>
                     </form>
                     </div>
 

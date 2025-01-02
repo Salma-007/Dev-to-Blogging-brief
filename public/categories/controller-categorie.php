@@ -6,14 +6,15 @@ use App\Categorie;
 
 $conn = Database::connect();
 
-// Gestion des catégories
+// ajouter des catégories
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_category'])) {
     $category = new Categorie($_POST['category_name'], $_POST['description']);
     $category->addCategory($conn);
     header('Location: list-categories.php'); 
     exit();
 }
-// echo 'stop fix';
+
+// delete des categories
 if(isset($_GET['id']) && $_GET['action'] === 'delete'){
 
     $category = new Categorie(null,null,$_GET['id']);
@@ -22,6 +23,13 @@ if(isset($_GET['id']) && $_GET['action'] === 'delete'){
     exit();
 }
 
+// update des categories
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_category'])) {
+    $category = new Categorie($_POST['category_name'], $_POST['description'],$_POST['id']);
+    $category->updateCategory($conn);
+    header('Location: list-categories.php'); 
+    exit();
+}
 
 
 
