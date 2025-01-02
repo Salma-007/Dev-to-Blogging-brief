@@ -2,7 +2,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/devblog brief/public/index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-blog"></i>
                 </div>
@@ -55,8 +55,8 @@
                 <div id="collapseCategories" class="collapse" aria-labelledby="headingCategories" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Category Management:</h6>
-                        <a class="collapse-item" href="../categories/list-categories.php">View All Categories</a>
-                        <a class="collapse-item" href="../categories/add-category.php">Add New Category</a>
+                        <a class="collapse-item" href="/devblog brief/public/categories/list-categories.php">View All Categories</a>
+                        <a class="collapse-item" href="/devblog brief/public/categories/add-category.php">Add New Category</a>
                     </div>
                 </div>
             </li>
@@ -71,8 +71,8 @@
                 <div id="collapseTags" class="collapse" aria-labelledby="headingTags" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Tag Management:</h6>
-                        <a class="collapse-item" href="tags.php">View All Tags</a>
-                        <a class="collapse-item" href="add-tag.php">Add New Tag</a>
+                        <a class="collapse-item" href="/devblog brief/public/tags/list-tags.php">View All Tags</a>
+                        <a class="collapse-item" href="/devblog brief/public/tags/add-tag.php">Add New Tag</a>
                     </div>
                 </div>
             </li>

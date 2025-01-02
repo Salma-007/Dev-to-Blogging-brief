@@ -63,7 +63,6 @@ class Categorie{
         return ( $stmt->fetch(PDO::FETCH_ASSOC));
 
     }
-
    
     // recuperation de toutes les catégories
     public static function getAllCategories($db) {

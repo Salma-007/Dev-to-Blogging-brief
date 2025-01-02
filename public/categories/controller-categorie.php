@@ -3,7 +3,6 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use App\config\Database;
 use App\Categorie;
 
-
 $conn = Database::connect();
 
 // ajouter des catégories
@@ -16,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_category'])) {
 
 // delete des categories
 if(isset($_GET['id']) && $_GET['action'] === 'delete'){
-
     $category = new Categorie(null,null,$_GET['id']);
     $category->deleteCategory($conn);
     header('Location: list-categories.php'); 

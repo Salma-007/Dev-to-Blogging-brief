@@ -1,43 +1,40 @@
 <?php
 namespace App;
-require '../vendor/autoload.php';
+require '../../vendor/autoload.php';
 use App\config\Database;
 $conn = Database::connect();
+use PDO;
 
 class Crud{
+    
     private $conn;
 
     public function __construct($conn) {
-        $this->setConn($conn);
-    } 
-    public function setConn($conn){
         $this->conn = $conn;
-    }
+    } 
 
     // methode d'insertion 
-    public static function insertRecord($conn, $table, $data) {
-        // Use prepared statements to prevent SQL injection
+    public function insertRecord($table, $data) {
         
         $columns = implode(',', array_keys($data));
         $placeholders = implode(',', array_fill(0, count($data), '?'));
 
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
 
-        $stmt = $conn->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
 
         if (!$stmt) {
             die("Error in prepared statement: " . print_r($conn->errorInfo(), true));
         }
-        // Execute the prepared statement
         $result = $stmt->execute(array_values($data));
         return $result;
     }
 
         // methode de suppression 
-        public static function deleteRecord($conn, $table, $id) {
+        public function deleteRecord($table, $id) {
 
             $sql = "DELETE FROM $table WHERE id = :id";
-            $stmt = $conn->prepare($sql);
+            $stmt = $this->conn->prepare($sql);
             if (!$stmt) {
                 die("Error in prepared statement: " . print_r($conn->errorInfo(), true));
             }
@@ -47,7 +44,7 @@ class Crud{
         }
 
         // methode de update 
-        function updateRecord($conn, $table, $data, $id) {
+        public function updateRecord($table, $data, $id) {
             $args = array();
         
             foreach ($data as $key => $value) {
@@ -56,7 +53,7 @@ class Crud{
         
             $sql = "UPDATE $table SET " . implode(',', $args) . " WHERE id = ?";
         
-            $stmt = $conn->prepare($sql);
+            $stmt = $this->conn->prepare($sql);
         
             if (!$stmt) {
                 die("Error in prepared statement: " . print_r($conn->errorInfo(), true));
@@ -71,11 +68,12 @@ class Crud{
             return $result;
         }
 
-            //methode d'affichage de tous les joueurs
-    public function listPlayers($conn,$table) {
+            //methode d'affichage de tous les records
+    public function readRecords($table) {
         $query = "SELECT * FROM $table;";
-        $stmt = $conn->query($query);
+        $stmt = $this->conn->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
 }
