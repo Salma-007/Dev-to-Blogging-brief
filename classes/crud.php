@@ -76,6 +76,19 @@ class Crud{
         return $result;
     }
 
+    //methode d'afficher une record
+    public function getRecord($table, $id){
+        $query = "SELECT * FROM $table WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+            if ($stmt->execute(['id' => $id])) {
+            $resultat = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $resultat;
+        } else {
+            return null;
+        }
+    }
+    
+
 }
 
 

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +21,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stylecategorie.css">
 
     <!-- Custom styles for this page -->
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -248,55 +251,34 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php 
+                        
+                        // var_dump($categorie);
+                    ?>
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tags</h1> 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">table</h6>
-                        </div>
-                        <?php 
-                        // require_once __DIR__ . '/../../vendor/autoload.php';
+                    <h1 class="h3 mb-2 text-gray-800">Categories</h1> 
+                    <?php
                         use App\config\Database;
                         use App\Tag;
                         require "../../vendor/autoload.php";
-                        // include realpath(dirname(__FILE__)."../config/database.php");
-                        // include realpath(dirname(__FILE__)."../classes/categorie.php");
                         $conn = Database::connect();
-                        $tagss = new Tag();
-                        $tags = $tagss->getAllTags($conn);
-                        ?>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>update</th>
-                                            <th>delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th>Name</th>
-                                            <th>update</th>
-                                            <th>delete</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <?php foreach($tags as $tag): ?>
-                                        <tr>
-                                            <td><?php  echo $tag['nom_tag'];?></td>
-                                            <td><a href="update-tag.php?id_tag=<?php echo htmlspecialchars($tag['id']); ?>" class="btn btn-primary" >update</a></td>
-                                            <td><a href="controller-tag.php?action=delete&id=<?php echo htmlspecialchars($tag['id']); ?>" class="btn btn-danger">delete</a></td>
-                                            
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                        $tags =  new Tag(null,$_GET['id_tag']);
+                        $values = $tags->getTag();
+                    ?>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">update: </h6>
                         </div>
+                            <form method="POST" action="controller-tag.php">
+                            <label for="name">Nom de la catégorie</label>
+                            <input type="hidden" name="id" id="name" value=<?php echo $values['id']; ?> required>
+
+                            <input type="text" name="tag_name" id="name" value=<?php echo $values['nom_tag']; ?> required>
+
+
+                            <button type="submit" name="update_tag">Update</button>
+                    </form>
                     </div>
 
                 </div>

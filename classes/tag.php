@@ -61,4 +61,9 @@ class Tag{
         return $this->crud->readRecords($this->table);
     }
 
+    //get a record
+    public function getTag(){
+        return $this->crud->getRecord($this->table,$this->id);
+    }
+
 }
