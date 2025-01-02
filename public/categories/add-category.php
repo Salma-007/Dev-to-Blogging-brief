@@ -259,7 +259,7 @@
                         </div>
                             <form method="POST" action="controller-categorie.php">
                             <label for="name">Nom de la catégorie</label>
-                            <input type="text" name="name" id="name" required>
+                            <input type="text" name="category_name" id="name" required>
 
                             <label for="description">Description</label>
                             <textarea name="description" id="description" required></textarea>

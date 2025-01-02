@@ -258,10 +258,11 @@
                         </div>
                         <?php 
                         // require_once __DIR__ . '/../../vendor/autoload.php';
-                        // include_once '../config/database.php';
-                        // include_once '../classes/categorie.php';
-                        include_once realpath(dirname(__FILE__)."../config/database.php");
-                        include_once realpath(dirname(__FILE__)."../classes/categorie.php");
+                        use App\config\Database;
+                        use App\Categorie;
+                        require "../../vendor/autoload.php";
+                        // include realpath(dirname(__FILE__)."../config/database.php");
+                        // include realpath(dirname(__FILE__)."../classes/categorie.php");
                         $conn = Database::connect();
                         $categories = Categorie::getAllCategories($conn);
                         ?>
@@ -289,14 +290,17 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <?php foreach($categories as $categorie): ?>
                                         <tr>
-                                            <td>Shad Decker</td>
-                                            <td><?php  ?></td>
+                                            
+                                            <td><?php  echo $categorie['nom_category'];?></td>
+                                            <td><?php  echo $categorie['description'];?></td>
                                             <td>Edinburgh</td>
                                             <td>51</td>
                                             <td>2008/11/13</td>
                                             <td>$183,000</td>
                                         </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

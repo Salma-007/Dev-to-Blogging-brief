@@ -1,5 +1,9 @@
 <?php
-include_once('../config/database.php');
+namespace App;
+// include_once('../config/database.php');
+require "../vendor/autoload.php";
+use App\config\Database;
+use PDO;
 $conn = Database::connect();
 
 // ajout du premier admin

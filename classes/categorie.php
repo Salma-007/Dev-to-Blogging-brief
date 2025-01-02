@@ -1,10 +1,12 @@
 <?php
-
+namespace App;
+require '../../vendor/autoload.php';
+use PDO;
 class Categorie{
     private $id;
     private $name;
     private $description;
-    protected $articles = [];
+    // protected $articles = [];
 
     public function __construct($nom, $description, $id = -1)
     {
@@ -32,28 +34,28 @@ class Categorie{
         $this->description = $description;
     }
 
-    // Méthode pour ajouter une catégorie 
+    // ajouter une catégorie 
     public function addCategory($db) {
         $sql = "INSERT INTO categories (nom_category, description) VALUES (:name, :description)";
         $stmt = $db->prepare($sql);
         $stmt->execute(['name' => $this->name,'description' => $this->description]);
     }
 
-    // Méthode pour modifier une catégorie
+    // modifier une catégorie
     public function updateCategory($db) {
         $sql = "UPDATE categories SET nom_category = :name WHERE id = :id";
         $stmt = $db->prepare($sql);
         $stmt->execute(['name' => $this->name, 'id' => $this->id]);
     }
 
-    // Méthode pour supprimer une catégorie
+    // supprimer une catégorie
     public function deleteCategory($db) {
         $sql = "DELETE FROM categories WHERE id = :id";
         $stmt = $db->prepare($sql);
         $stmt->execute(['id' => $this->id]);
     }
 
-    // Méthode pour récupérer toutes les catégories
+    // recuperation de toutes les catégories
     public static function getAllCategories($db) {
         $sql = "SELECT * FROM categories";
         $stmt = $db->query($sql);

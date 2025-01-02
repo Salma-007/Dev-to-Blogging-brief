@@ -1,7 +1,11 @@
 <?php
-require_once '../vendor/autoload.php';
+namespace App\config;
+require "../../vendor/autoload.php";
 
 use Dotenv\Dotenv;
+use PDO;    
+use PDOException;
+
 
 class Database {
     private static $connection;
@@ -29,6 +33,9 @@ class Database {
         }
         return self::$connection;
     }
+    // public static function test(){
+    //     echo "stop fix";
+    // }
 }
 
 ?>
