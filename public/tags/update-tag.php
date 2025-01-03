@@ -274,7 +274,7 @@
                             <label for="name">Nom de la catégorie</label>
                             <input type="hidden" name="id" id="name" value=<?php echo $values['id']; ?> required>
 
-                            <input type="text" name="tag_name" id="name" value=<?php echo $values['nom_tag']; ?> required>
+                            <input type="text" name="tag_name" id="name" value="<?php echo htmlspecialchars($values['nom_tag']); ?> "required>
 
 
                             <button type="submit" name="update_tag">Update</button>

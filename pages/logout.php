@@ -15,4 +15,4 @@ if (isset($_COOKIE[session_name()])) {
 session_destroy();
 
 // Redirect to home page
-redirect('/index.php');
+redirect('/login.php');

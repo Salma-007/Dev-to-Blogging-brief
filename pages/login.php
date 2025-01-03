@@ -10,13 +10,13 @@
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
-				<form action="">
+				<form action="/devblog brief/public/users/controller-user.php" method= "POST">
 					<label for="chk" aria-hidden="true">Sign up</label>
-					<input type="text" name="txt" placeholder="User name" required="">
-					<input type="email" name="email" placeholder="Email" required="">
-          <input type="number" name="broj" placeholder="BrojTelefona" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button>Sign up</button>
+					<input type="text" name="username" placeholder="username" required="">
+					<input type="email" name="email" placeholder="email" required="">
+          	<!-- <input type="number" name="broj" placeholder="BrojTelefona" required=""> -->
+					<input type="password" name="pswd" placeholder="password" required="">
+					<button type='submit' >Sign up</button>
 				</form>
 			</div>
 
