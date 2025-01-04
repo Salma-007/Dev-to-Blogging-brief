@@ -21,8 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_article'])) {
         $articletag = new ArticleTag($id, $tag);
         $articletag->addArticleTag();
     };
-
-
     header('Location: list-articles.php'); 
     exit();
 }
@@ -34,6 +32,29 @@ if(isset($_GET['id']) && $_GET['action'] === 'delete'){
     header('Location: list-articles.php'); 
     exit();
 }
+
+// update article
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_article'])) {
+    $tagss = $_POST['tags'];
+    $categorieID =  intval($_POST['category_name']) ;
+    $article = new Article($_POST['article_name'], null, $_POST['description_article'], $_POST['article_meta_description'],$categorieID, null ,$_POST['id']);
+    $article->create_slug($_POST['article_name']);
+    $article->updateArticle($conn);
+    $id = $article->getId();
+
+    $exist_tags = new ArticleTag($id);
+    $exist_tags->deleteTagsbyArticle($conn);
+    // $existtag = $exist_tags->getTagsbyArticle($conn);
+    foreach($tagss as $tag){
+        $articletag = new ArticleTag($id, $tag);
+        $articletag->addArticleTag();
+    };
+
+
+    header('Location: list-articles.php'); 
+    exit();
+}
+
 
 
 

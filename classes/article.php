@@ -122,6 +122,42 @@ class Article{
         $stmt = $conn->prepare($sql);
         $stmt->execute(['id' => $this->id]);
     }
+
+    // methode pour recuperer un article
+    public function getArticle($conn){
+        $sql = "SELECT 
+                    articles.id, 
+                    articles.title as title, 
+                    articles.content as content,
+                    articles.meta_description as meta_description,
+                    categories.nom_category AS category_name, 
+                    GROUP_CONCAT(tags.nom_tag) AS tags
+                FROM 
+                    articles 
+                LEFT JOIN 
+                    categories ON articles.category_id = categories.id 
+                LEFT JOIN 
+                    article_tags ON articles.id = article_tags.article_id
+                LEFT JOIN 
+                    tags ON article_tags.tag_id = tags.id
+                where articles.id = :id
+                GROUP BY 
+                    articles.id, articles.title, categories.nom_category ;";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // methode update article
+    public function updateArticle($conn){
+        $sql = "UPDATE articles SET title = :title, content = :content, meta_description = :meta_description, category_id = :category_id WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['title' => $this->title,'content' => $this->content,'meta_description' => $this->meta_description,'category_id' => $this->category_id, 'id' => $this->id]);
+        return $lastId = $conn->lastInsertId(); 
+    }
+
+    
     
 
 

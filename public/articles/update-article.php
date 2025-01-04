@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stylecategorie.css">
 
     <!-- Custom styles for this page -->
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -254,89 +255,56 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">All Articles</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Add: </h6>
                             <?php  
+                            require '../../vendor/autoload.php';
+                            use App\Categorie;
                             use App\config\Database;
+                            use App\Tag;
                             use App\Article;
-                            require "../../vendor/autoload.php";
-
-                            $article = new Article();
-                            $articles = $article->getAllArticles();
-                            
+                            $conn = Database::connect();
+                            // getting all the tags
+                            $tag = new Tag();
+                            $tags = $tag->getAllTags();
+                            // get all the categories
+                            $categorie = new Categorie();
+                            $categories = $categorie->getAllCategories($conn);
+                            // getting the article by id
+                            $article = new Article(null,null,null,null,null,null,$_GET['id']);
+                            $values = $article->getArticle($conn);
+                            // print_r($values);
+                            // var_dump(explode(",",$values[0]['tags']));
+                            $tagies = explode(",",$values[0]['tags']);
                             ?>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Author</th>
-                                            <th>Category</th>
-                                            <th>Tags</th>
-                                            <th>Views</th>
-                                            <th>Created At</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Author</th>
-                                            <th>Category</th>
-                                            <th>Tags</th>
-                                            <th>Views</th>
-                                            <th>Created At</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    <?php foreach($articles as $article): ?>
-                                        <tr>
-                                            <td>
-                                                <?= htmlspecialchars($article['title']) ?>
-                                            </td>
-                                            <td><?= htmlspecialchars($article['author_name']) ?></td>
-                                            <td><?= htmlspecialchars($article['category_name']) ?></td>
-                                            <td>
-                                                <?php
-                                                if ($article['tags']) {
-                                                    $tags = explode(',', $article['tags']);
-                                                    foreach($tags as $tag) {
-                                                        echo '<span class="badge badge-primary mr-1">' . htmlspecialchars($tag) . '</span>';
-                                                    }
-                                                }
-                                                ?>
-                                            </td>
-                                            <td data-order="<?= $article['views'] ?>">
-                                                <?= number_format($article['views']) ?>
-                                            </td>
-                                            <td data-order="<?= strtotime($article['created_at']) ?>">
-                                                <?= date('M d, Y H:i', strtotime($article['created_at'])) ?>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a href="view-article.php?id=<?= $article['id'] ?>" 
-                                                    class="btn btn-info btn-sm">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <a href="update-article.php?id=<?= $article['id'] ?>" 
-                                                    class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a href="controller-article.php?action=delete&id=<?= $article['id'] ?>" 
-                                                    class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                    
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <form method="POST" action="controller-article.php">
+                        <input type="hidden" name="id" id="name" value=<?php echo $_GET['id']; ?> >
+                            <label for="name">Titre :</label>
+                            <input type="text" name="article_name" id="name" value="<?php echo $values[0]['title']; ?>" required>
+                            <!-- <label for="name">slug :</label>
+                            <input type="text" name="article_slug" id="name" required> -->
+                            <label for="description">Content: </label>
+                            <textarea name="description_article" id="description" value="<?php echo $values[0]['content']; ?>" required><?php echo $values[0]['content']; ?></textarea>
+                            <label for="categorieSelect">Categorie:: </label>
+                            <select name="category_name" class="form-control input-solid" id="categorieSelect" name="categorieSelect">
+                                <?php foreach ($categories as $categorie): ?>
+                                    <option value="<?= htmlspecialchars($categorie['id']); ?>" 
+                                        <?php if ($categorie['nom_category'] == $values[0]['category_name']) echo 'selected'; ?>>
+                                        <?= htmlspecialchars($categorie['nom_category']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="name">Tags :</label>
+                            <?php foreach ($tags as $index => $tag): ?>
+                                <input type="checkbox" id="tag<?= $tag['id'] ?>" name="tags[]" value="<?= htmlspecialchars($tag['id']) ?>" 
+                                <?php if (in_array($tag['nom_tag'], $tagies)) echo 'checked'; ?>>
+                                <label for="tag<?= $tag['id'] ?>"><?= htmlspecialchars($tag['nom_tag']) ?></label><br>
+                            <?php endforeach; ?>
+
+                            </br><label for="name">meta description :</label>
+                            <input type="text" name="article_meta_description" id="name" value="<?php echo $values[0]['meta_description']; ?>" required>
+                            <button type="submit" name="update_article">update</button>
+                    </form>
                     </div>
 
                 </div>
