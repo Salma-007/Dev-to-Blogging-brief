@@ -1,7 +1,10 @@
 
 form {
     max-width: 400px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* margin: 0 auto; */
     padding: 20px;
     border-radius: 8px;
 }
@@ -26,4 +29,25 @@ button {
 }
 button:hover {
     background-color: #45a049;
+}
+
+fieldset.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Espace entre les éléments */
+    margin-bottom: 20px;
+}
+
+/* Les labels et les cases à cocher seront disposés côte à côte */
+fieldset.tags input[type="checkbox"],
+fieldset.tags label {
+    display: inline-block;
+    margin-right: 10px; /* Espacement entre la case à cocher et le label */
+    font-size: 1em;
+    vertical-align: middle;
+}
+
+/* Rendre les éléments plus compactes si nécessaire */
+fieldset.tags label {
+    margin-left: 5px;
 }

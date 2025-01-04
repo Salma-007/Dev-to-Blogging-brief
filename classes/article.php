@@ -13,7 +13,7 @@ class Article{
     private $slug;
     private $content;
     private $meta_description;
-    private Categorie $category;
+    private $category_id;
     private $img;
     private $status;
     private User $auteur;
@@ -22,14 +22,15 @@ class Article{
     private $views;
     public $conn;
 
-    public function __construct(){
-        // $this->title = $title;
-        // $this->slug = $slug;
-        // $this->content = $content;
-        // $this->meta_description = $description;
-        // $this->category = $category;
+    public function __construct($title = null, $slug = null, $content = null, $description = null, $category_id = null , $status = 'pending', $id = -1){
+        $this->id = $id;
+        $this->title = $title;
+        $this->slug = $slug;
+        $this->content = $content;
+        $this->meta_description = $description;
+        $this->category_id = $category_id;
         // $this->img = $img;
-        // $this->status = $status;
+        $this->status = $status;
         // $this->auteur = $auteur;
         // $this->created_at = $created_at;
         $this->conn = Database::connect();
@@ -47,16 +48,40 @@ class Article{
     }
 
     public function getAllArticles(){
-        $query = "SELECT articles.id, title, users.username as author_name , categories.nom_category as category_name, tags.nom_tag as tags, views, created_at FROM articles 
-                JOIN users ON articles.auteur_id = users.id
-                JOIN categories ON articles.category_id = categories.id 
-                JOIN article_tags ON articles.id = article_tags.article_id
-                JOIN tags ON article_tags.tag_id = tags.id;";
+        $query = "SELECT 
+                        articles.id, 
+                        articles.title, 
+                        users.username AS author_name, 
+                        categories.nom_category AS category_name, 
+                        GROUP_CONCAT(tags.nom_tag) AS tags, 
+                        articles.views, 
+                        articles.created_at
+                    FROM 
+                        articles 
+                    LEFT JOIN 
+                        users ON articles.auteur_id = users.id
+                    LEFT JOIN 
+                        categories ON articles.category_id = categories.id 
+                    LEFT JOIN 
+                        article_tags ON articles.id = article_tags.article_id
+                    LEFT JOIN 
+                        tags ON article_tags.tag_id = tags.id
+                    GROUP BY 
+                        articles.id, articles.title, users.username, categories.nom_category, articles.views, articles.created_at";
         $stmt = $this->conn->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
+    public function addArticle($conn){
+        $sql = "INSERT INTO articles (title, slug, content, meta_description, category_id, status) VALUES (:title, :slug, :content, :meta_description, :category_id, :status)";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['title' => $this->title,'slug' => $this->slug, 'content' => $this->content,'meta_description' => $this->meta_description, 'category_id' => $this->category_id, 'status' => $this->status ]);
+
+        
+    }
+
+    
 
 
 

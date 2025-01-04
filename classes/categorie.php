@@ -8,7 +8,7 @@ class Categorie{
     private $description;
     // protected $articles = [];
 
-    public function __construct($nom, $description, $id = -1)
+    public function __construct($nom = null, $description = null, $id = -1)
     {
         $this->name = $nom;
         $this->description = $description;
