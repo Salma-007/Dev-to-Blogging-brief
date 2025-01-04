@@ -25,6 +25,8 @@ class ArticleTag{
         return $this->crud->insertRecord($this->table, $data);
     }
 
+    
+
 }
 
 

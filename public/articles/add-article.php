@@ -271,8 +271,8 @@
                         <form method="POST" action="controller-article.php">
                             <label for="name">Titre :</label>
                             <input type="text" name="article_name" id="name" required>
-                            <label for="name">slug :</label>
-                            <input type="text" name="article_slug" id="name" required>
+                            <!-- <label for="name">slug :</label>
+                            <input type="text" name="article_slug" id="name" required> -->
                             <label for="description">Content: </label>
                             <textarea name="description_article" id="description" required></textarea>
                             <label for="categorieSelect">Categorie:: </label>
@@ -286,7 +286,7 @@
                                 <input type="checkbox" id="tag<?= $index ?>" name="tags[]" value="<?= htmlspecialchars($tag['id']) ?>">
                                 <label for="tag<?= $index ?>"><?= htmlspecialchars($tag['nom_tag']) ?></label><br>
                             <?php endforeach; ?>
-                            <label for="name">meta description :</label>
+                            </br><label for="name">meta description :</label>
                             <input type="text" name="article_meta_description" id="name" required>
                             <button type="submit" name="add_article">Ajouter</button>
                     </form>

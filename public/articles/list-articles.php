@@ -324,11 +324,11 @@
                                                     class="btn btn-primary btn-sm">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <button type="button" 
-                                                            class="btn btn-danger btn-sm delete-article" 
-                                                            data-id="<?= $article['id'] ?>">
+                                                    <a href="controller-article.php?action=delete&id=<?= $article['id'] ?>" 
+                                                    class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
-                                                    </button>
+                                                    </a>
+                                                    
                                                 </div>
                                             </td>
                                         </tr>

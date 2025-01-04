@@ -47,6 +47,10 @@ class Article{
         $this->title = $title;
     }
 
+    public function setSlug($slug){
+        $this->slug = $slug;
+    }
+
     public function getAllArticles(){
         $query = "SELECT 
                         articles.id, 
@@ -73,6 +77,7 @@ class Article{
         return $result;
     }
 
+    // methode d'ajout d'un article
     public function addArticle($conn){
         $sql = "INSERT INTO articles (title, slug, content, meta_description, category_id, status) VALUES (:title, :slug, :content, :meta_description, :category_id, :status)";
         $stmt = $conn->prepare($sql);
@@ -80,6 +85,43 @@ class Article{
         return $lastId = $conn->lastInsertId();    
     }
 
+    // slug generator
+    function create_slug($string) {
+        // Replace non letter or digits by -
+        $string = preg_replace('~[^\pL\d]+~u', '-', $string);
+    
+        // Transliterate
+        if (function_exists('iconv')) {
+            $string = iconv('utf-8', 'us-ascii//TRANSLIT', $string);
+        }
+    
+        // Remove unwanted characters
+        $string = preg_replace('~[^-\w]+~', '', $string);
+    
+        // Trim
+        $string = trim($string, '-');
+    
+        // Remove duplicate -
+        $string = preg_replace('~-+~', '-', $string);
+    
+        // Lowercase
+        $string = strtolower($string);
+    
+        // If string is empty, return 'n-a'
+        if (empty($string)) {
+            return 'n-a';
+        }
+        $this->setSlug($string);
+        
+        return $string;
+    }
+
+    // methode de suppression
+    public function deletearticle($conn){
+        $sql = "DELETE FROM articles WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
+    }
     
 
 
