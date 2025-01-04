@@ -77,8 +77,7 @@ class Article{
         $sql = "INSERT INTO articles (title, slug, content, meta_description, category_id, status) VALUES (:title, :slug, :content, :meta_description, :category_id, :status)";
         $stmt = $conn->prepare($sql);
         $stmt->execute(['title' => $this->title,'slug' => $this->slug, 'content' => $this->content,'meta_description' => $this->meta_description, 'category_id' => $this->category_id, 'status' => $this->status ]);
-
-        
+        return $lastId = $conn->lastInsertId();    
     }
 
     

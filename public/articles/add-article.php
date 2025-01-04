@@ -283,7 +283,7 @@
                             </select>
                             <label for="name">Tags :</label>
                             <?php foreach ($tags as $index => $tag): ?>
-                                <input type="checkbox" id="tag<?= $index ?>" name="tags[]" value="<?= htmlspecialchars($tag['nom_tag']) ?>">
+                                <input type="checkbox" id="tag<?= $index ?>" name="tags[]" value="<?= htmlspecialchars($tag['id']) ?>">
                                 <label for="tag<?= $index ?>"><?= htmlspecialchars($tag['nom_tag']) ?></label><br>
                             <?php endforeach; ?>
                             <label for="name">meta description :</label>
