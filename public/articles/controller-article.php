@@ -55,6 +55,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_article'])) {
     exit();
 }
 
+// accept article
+if(isset($_GET['id']) && $_GET['action'] === 'accept'){
+    $article = new Article(null,null,null,null,null,null,$_GET['id']);
+    $article->acceptArticle($conn);
+    header('Location: list-articles.php'); 
+    exit();
+}
+
+// refuse article
+if(isset($_GET['id']) && $_GET['action'] === 'refuse'){
+    $article = new Article(null,null,null,null,null,null,$_GET['id']);
+    $article->refuseArticle($conn);
+    header('Location: list-articles.php'); 
+    exit();
+}
 
 
 

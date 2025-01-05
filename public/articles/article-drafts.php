@@ -296,6 +296,10 @@
                                     </tfoot>
                                     <tbody>
                                     <?php foreach($articles as $article): ?>
+                                        <?php
+                                                $status = htmlspecialchars($article['status']);
+                                                if($status == 'pending'){
+                                                ?>
                                         <tr>
                                             <td>
                                                 <?= htmlspecialchars($article['title']) ?>
@@ -316,18 +320,7 @@
                                                 <?= number_format($article['views']) ?>
                                             </td>
                                             <td>
-                                                <?php
-                                                $status = htmlspecialchars($article['status']);
-                                                if ($status == 'pending') {
-                                                    $badgeClass = 'badge-warning'; // Yellow for pending
-                                                } elseif ($status == 'accepted') {
-                                                    $badgeClass = 'badge-success'; // Green for accepted
-                                                } elseif ($status == 'refused') {
-                                                    $badgeClass = 'badge-danger'; // Red for rejected
-                                                }
-                                                ?>
-                                                
-                                                <span class="badge <?= $badgeClass ?> mr-1"><?= $status ?></span>
+                                                <span class="badge badge-warning mr-1"><?= htmlspecialchars($article['status']) ?></span>
                                             </td>
 
                                             <td data-order="<?= strtotime($article['created_at']) ?>">
@@ -338,23 +331,21 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="view-article.php?id=<?= $article['id'] ?>" 
+                                                    <a href="controller-article.php?action=accept&id=<?= $article['id'] ?>" 
                                                     class="btn btn-info btn-sm">
-                                                        <i class="fas fa-eye"></i>
+                                                        accept
                                                     </a>
-                                                    <a href="update-article.php?id=<?= $article['id'] ?>" 
-                                                    class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <a href="controller-article.php?action=delete&id=<?= $article['id'] ?>" 
+                                                    
+                                                    <a href="controller-article.php?action=refuse&id=<?= $article['id'] ?>" 
                                                     class="btn btn-danger btn-sm">
-                                                        <i class="fas fa-trash"></i>
+                                                        refuse
                                                     </a>
                                                     
                                                 </div>
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
+
+                                    <?php }endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

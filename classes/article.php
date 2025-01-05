@@ -58,8 +58,10 @@ class Article{
                         users.username AS author_name, 
                         categories.nom_category AS category_name, 
                         GROUP_CONCAT(tags.nom_tag) AS tags, 
+                        status,
                         articles.views, 
-                        articles.created_at
+                        articles.created_at,
+                        articles.updated_at
                     FROM 
                         articles 
                     LEFT JOIN 
@@ -157,7 +159,19 @@ class Article{
         return $lastId = $conn->lastInsertId(); 
     }
 
-    
+    //accept article
+    public function acceptArticle($conn){
+        $sql = "UPDATE articles SET status = 'accepted' WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
+    }
+
+    //refuse article
+    public function refuseArticle($conn){
+        $sql = "UPDATE articles SET status = 'refused' WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
+    }
     
 
 
