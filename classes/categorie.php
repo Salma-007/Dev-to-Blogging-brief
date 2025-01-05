@@ -62,7 +62,6 @@ class Categorie{
         $stmt = $db->prepare($sql);
         $stmt->execute(['id' => $this->id]);
         return ( $stmt->fetch(PDO::FETCH_ASSOC));
-
     }
    
     // recuperation de toutes les catégories

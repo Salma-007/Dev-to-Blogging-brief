@@ -11,7 +11,7 @@
     <div class="container my-5">
         <h1 class="text-center mb-4">Articles Publiés</h1>
         <?php  
-            require '../../vendor/autoload.php';
+            require realpath(__DIR__.'/../vendor/autoload.php');
             use App\Article;
             use App\config\Database;
             $conn = Database::connect();

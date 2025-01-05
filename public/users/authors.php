@@ -292,7 +292,7 @@
                                         <tr>
                                             <td><?php  echo $auteur['username'];?></td>
                                             <td><?php  echo $auteur['email'];?></td>
-                                            <td><a href="update-categorie.php?id_categorie=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-primary" >update</a></td>
+                                            <td><a href="update-user.php?id=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-primary" >update</a></td>
                                             <td><a href="controller-user.php?action=ban&id=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-danger">ban</a></td>
                                         </tr>
                                         <?php endforeach; ?>

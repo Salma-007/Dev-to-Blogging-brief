@@ -16,7 +16,7 @@
 					<input type="email" name="email" placeholder="email" required="">
           	<!-- <input type="number" name="broj" placeholder="BrojTelefona" required=""> -->
 					<input type="password" name="pswd" placeholder="password" required="">
-					<button type='submit' >Sign up</button>
+					<button type='submit' name="register_user" >Sign up</button>
 				</form>
 			</div>
 

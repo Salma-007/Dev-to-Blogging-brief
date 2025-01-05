@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +21,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stylecategorie.css">
 
     <!-- Custom styles for this page -->
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -248,60 +251,36 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                <?php 
+                        
+                        // var_dump($categorie);
+                    ?>
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Visitors</h1> 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">table</h6>
-                        </div>
-                        <?php 
-                        // require_once __DIR__ . '/../../vendor/autoload.php';
+                    <h1 class="h3 mb-2 text-gray-800">User</h1> 
+                    <?php
                         use App\config\Database;
                         use App\User;
                         require "../../vendor/autoload.php";
-
                         $conn = Database::connect();
-                        $visitor = new User(); 
-                        $visitors = $visitor->getVisitors($conn);
-                        // var_dump($auteurs);
-                        ?>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>edit</th>
-                                            <th>Assign Role</th>
-                                            <th>ban user</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>edit</th>
-                                            <th>Assign Role</th>
-                                            <th>ban user</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <?php foreach($visitors as $visitor): ?>
-                                        <tr>
-                                            <td><?php  echo $visitor['username'];?></td>
-                                            <td><?php  echo $visitor['email'];?></td>
-                                            <td><a href="update-user.php?action=update_user&id=<?php echo htmlspecialchars($visitor['id']); ?>" class="btn btn-primary" >update</a></td>
-                                            <td><a href="controller-user.php?action=role&id=<?php echo htmlspecialchars($visitor['id']); ?>" class="btn btn-success">author</a></td>
-                                            <td><a href="controller-user.php?action=ban&id=<?php echo htmlspecialchars($visitor['id']); ?>" class="btn btn-danger">ban</a></td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                        $users =  new User(null,null,null,$_GET['id']);
+                        $user = $users->getUser($conn);
+                    ?>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">update: </h6>
                         </div>
+                            <form method="POST" action="controller-user.php">
+                            <label for="name">Username</label>
+                            <input type="hidden" name="id" id="name" value=<?php echo $user['id']; ?> required>
+
+                            <input type="text" name="username" id="name" value=<?php echo $user['username']; ?> required>
+
+                            <label for="email">email</label>
+                            <input type="text" name="email" id="name" value=<?php echo $user['email']; ?> required>
+
+                            <button type="submit" name="update_user">Update</button>
+                    </form>
                     </div>
 
                 </div>

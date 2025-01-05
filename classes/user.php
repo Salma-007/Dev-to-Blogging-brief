@@ -66,7 +66,14 @@ class User{
         $sql = "SELECT * from users where role = 'auteur';";
         $stmt = $conn->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    //get user by id
+    public function getUser($conn){
+        $sql = "SELECT * from users where id = :id ;";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
+        return ( $stmt->fetch(PDO::FETCH_ASSOC));
     }
 
     // get all visitors
@@ -104,6 +111,13 @@ class User{
         $stmt->execute();
         $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    //update user
+    public function updateUser($conn){
+        $sql = "UPDATE users SET username = :username, email = :email WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['username' => $this->username,'email' => $this->email, 'id' => $this->id]);
     }
 
 
