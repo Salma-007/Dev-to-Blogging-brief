@@ -263,8 +263,8 @@
                         require "../../vendor/autoload.php";
 
                         $conn = Database::connect();
-                        $authors = new User(); 
-                        $auteurs = $authors->getAuthors($conn);
+                        $visitor = new User(); 
+                        $visitors = $visitor->getVisitors($conn);
                         // var_dump($auteurs);
                         ?>
                         <div class="card-body">
@@ -275,7 +275,8 @@
                                             <th>Username</th>
                                             <th>Email</th>
                                             <th>edit</th>
-                                            <th>Ban User</th>
+                                            <th>Assign Role</th>
+                                            <th>ban user</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -283,17 +284,18 @@
                                             <th>Username</th>
                                             <th>Email</th>
                                             <th>edit</th>
-                                            <th>Ban User</th>
+                                            <th>Assign Role</th>
+                                            <th>ban user</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <?php foreach($auteurs as $auteur): ?>
+                                        <?php foreach($visitors as $visitor): ?>
                                         <tr>
-                                            <td><?php  echo $auteur['username'];?></td>
-                                            <td><?php  echo $auteur['email'];?></td>
-                                            <td><a href="update-categorie.php?id_categorie=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-primary" >update</a></td>
-                                            <td><a href="controller-user.php?action=delete&id=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-danger">ban</a></td>
-                                            
+                                            <td><?php  echo $visitor['username'];?></td>
+                                            <td><?php  echo $visitor['email'];?></td>
+                                            <td><a href="update-categorie.php?id_categorie=<?php echo htmlspecialchars($visitor['id']); ?>" class="btn btn-primary" >update</a></td>
+                                            <td><a href="controller-user.php?action=role&id=<?php echo htmlspecialchars($visitor['id']); ?>" class="btn btn-success">author</a></td>
+                                            <td><a href="controller-user.php?action=delete&id=<?php echo htmlspecialchars($visitor['id']); ?>" class="btn btn-danger">ban</a></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>

@@ -17,6 +17,7 @@ class User{
 
     public function __construct($username = null, $email = null, $password = null, $id = -1, $role = 'visitor'){
         $conn = Database::connect();
+        $this->id = $id;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
@@ -66,6 +67,20 @@ class User{
         $stmt = $conn->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    }
+
+    // get all visitors
+    public function getVisitors($conn){
+        $sql = "SELECT * from users where role = 'visitor';";
+        $stmt = $conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // assign role author to visitor
+    public function assignRoleAuthor($conn){
+        $sql = "UPDATE users SET role = 'auteur' WHERE id = :id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $this->id]);
     }
 
 

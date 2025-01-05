@@ -40,7 +40,7 @@
                         <h6 class="collapse-header">Article Management:</h6>
                         <a class="collapse-item" href="/devblog brief/public/articles/list-articles.php">View Articles</a>
                         <a class="collapse-item" href="/devblog brief/public/articles/add-article.php">Add New Article</a>
-                        <a class="collapse-item" href="article-drafts.php">Pending Articles</a>
+                        <a class="collapse-item" href="/devblog brief/public/articles/article-drafts.php">Pending Articles</a>
                     </div>
                 </div>
             </li>
@@ -95,8 +95,8 @@
                 <div id="collapseAuthors" class="collapse" aria-labelledby="headingAuthors" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Users Management:</h6>
-                        <a class="collapse-item" href="authors.php">View All Authors</a>
-                        <a class="collapse-item" href="add-author.php">View All Visitors</a>
+                        <a class="collapse-item" href="/devblog brief/public/users/authors.php">View All Authors</a>
+                        <a class="collapse-item" href="/devblog brief/public/users/visitors.php">View All Visitors</a>
                     </div>
                 </div>
             </li>
