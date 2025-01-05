@@ -7,13 +7,15 @@ require '../../vendor/autoload.php';
 use App\User;
 use App\config\Database;
 use App\Crud;
-
+use App\Article;
 
 $conn = Database::connect();
 $crud = new Crud($conn);
 $user = new User();
 $top_users = $user->getTopAuthors($conn);
 $top_articles = $user->getTopArticles($conn);
+$article = new Article();
+$articles = $article->getAllArticles();
 
 // var_dump($top_articles);
 
@@ -379,15 +381,14 @@ $colors = [
                                                     class="btn btn-info btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a href="edit-article.php?id=<?= $article['id'] ?>" 
+                                                    <a href="/devblog brief/public/articles/update-article.php?id=<?= $article['id'] ?>" 
                                                     class="btn btn-primary btn-sm">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <button type="button" 
-                                                            class="btn btn-danger btn-sm delete-article" 
-                                                            data-id="<?= $article['id'] ?>">
+                                                    <a href="/devblog brief/public/articles/controller-article.php?action=delete&id=<?= $article['id'] ?>" 
+                                                    class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
-                                                    </button>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
