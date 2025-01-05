@@ -51,6 +51,12 @@ class Article{
         $this->slug = $slug;
     }
 
+    public function getPublishedArticles($conn){
+        $query = "select title, content from articles status = 'accepted';";
+        $stmt = $conn->query($query);
+        return $stmt;
+    }
+
     public function getAllArticles(){
         $query = "SELECT 
                         articles.id, 

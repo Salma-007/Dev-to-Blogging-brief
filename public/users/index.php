@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+// Vérifier si l'utilisateur est connecté et s'il est un admin
+if (!isset($_SESSION['id']) || $_SESSION['role'] !== 'admin') {
+    header('Location: /devblog brief/pages/login.php');
+    exit();
+}
+
 require '../../vendor/autoload.php';
 use App\User;
 use App\config\Database;

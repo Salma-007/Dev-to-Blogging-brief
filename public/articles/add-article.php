@@ -271,6 +271,8 @@
                         <form method="POST" action="controller-article.php">
                             <label for="name">Titre :</label>
                             <input type="text" name="article_name" id="name" required>
+                            <label for="name">Image :</label>
+                            <input type="file" id="photo_input" accept="image/*" class="form-control input-square" name="photo_input">
                             <!-- <label for="name">slug :</label>
                             <input type="text" name="article_slug" id="name" required> -->
                             <label for="description">Content: </label>

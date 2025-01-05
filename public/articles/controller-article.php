@@ -8,6 +8,11 @@ $conn = Database::connect();
 // ajouter des articles
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_article'])) {
 
+    $photo = $_FILES['photo_input']['name'];
+    $photo_tmp = $_FILES['photo_input']['tmp_name'];
+    $photo_folder = 'uploads/photos/' . $photo; 
+    move_uploaded_file($photo_tmp, $photo_folder);
+
     // var_dump($_POST['tags']);
     $tagss = $_POST['tags'];
     // echo($tagss[0]);
