@@ -90,25 +90,17 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAuthors"
                     aria-expanded="true" aria-controls="collapseAuthors">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Authors</span>
+                    <span>Users</span>
                 </a>
                 <div id="collapseAuthors" class="collapse" aria-labelledby="headingAuthors" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Author Management:</h6>
+                        <h6 class="collapse-header">Users Management:</h6>
                         <a class="collapse-item" href="authors.php">View All Authors</a>
-                        <a class="collapse-item" href="add-author.php">Add New Author</a>
-                        <a class="collapse-item" href="author-roles.php">Manage Roles</a>
+                        <a class="collapse-item" href="add-author.php">View All Visitors</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Comments -->
-            <li class="nav-item">
-                <a class="nav-link" href="comments.php">
-                    <i class="fas fa-fw fa-comments"></i>
-                    <span>Comments</span>
-                </a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -118,22 +110,6 @@
                 Settings
             </div>
 
-            <!-- Nav Item - Blog Settings -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings"
-                    aria-expanded="true" aria-controls="collapseSettings">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Blog Settings</span>
-                </a>
-                <div id="collapseSettings" class="collapse" aria-labelledby="headingSettings" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Configuration:</h6>
-                        <a class="collapse-item" href="general-settings.php">General Settings</a>
-                        <a class="collapse-item" href="appearance.php">Appearance</a>
-                        <a class="collapse-item" href="seo-settings.php">SEO Settings</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Nav Item - Your Profile -->
             <li class="nav-item">

@@ -4,6 +4,7 @@ require '../../vendor/autoload.php';
 
 use App\config\Database;
 use App\Crud;
+use PDO;
 
 class User{
     private $id;
@@ -59,6 +60,13 @@ class User{
         
     }
 
+    // get all authors
+    public function getAuthors($conn){
+        $sql = "SELECT * from users where role = 'auteur';";
+        $stmt = $conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 
 
 }
