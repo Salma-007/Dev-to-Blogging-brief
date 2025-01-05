@@ -16,11 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // asign role to a visitor
 if(isset($_GET['id']) && $_GET['action'] === 'role'){
     $user = new User(null,null,null,$_GET['id']);
-    var_dump($user->assignRoleAuthor($conn));
+    // var_dump($user->assignRoleAuthor($conn));
     header('Location: visitors.php'); 
     exit();
 }
 
+// ban users
+if(isset($_GET['id']) && $_GET['action'] === 'ban'){
+    $user = new User(null,null,null,$_GET['id']);
+    $user->banUser();
+    header('Location: visitors.php'); 
+    exit();
+}
 
 
 

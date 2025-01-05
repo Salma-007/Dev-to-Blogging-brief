@@ -30,45 +30,45 @@ class Crud{
         return $result;
     }
 
-        // methode de suppression 
-        public function deleteRecord($table, $id) {
+    // methode de suppression 
+    public function deleteRecord($table, $id) {
 
-            $sql = "DELETE FROM $table WHERE id = :id";
-            $stmt = $this->conn->prepare($sql);
-            if (!$stmt) {
-                die("Error in prepared statement: " . print_r($conn->errorInfo(), true));
-            }
-            $result = $stmt->execute([':id' => $id]);
-            
-            return $result;
+        $sql = "DELETE FROM $table WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            die("Error in prepared statement: " . print_r($conn->errorInfo(), true));
+        }
+        $result = $stmt->execute([':id' => $id]);
+        
+        return $result;
+    }
+
+    // methode de update 
+    public function updateRecord($table, $data, $id) {
+        $args = array();
+        
+        foreach ($data as $key => $value) {
+            $args[] = "$key = ?";
+        }
+        
+        $sql = "UPDATE $table SET " . implode(',', $args) . " WHERE id = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        
+        if (!$stmt) {
+            die("Error in prepared statement: " . print_r($conn->errorInfo(), true));
         }
 
-        // methode de update 
-        public function updateRecord($table, $data, $id) {
-            $args = array();
+        $params = array_values($data);
+        $params[] = $id;
         
-            foreach ($data as $key => $value) {
-                $args[] = "$key = ?";
-            }
+        // Execute the prepared statement with the parameters
+        $result = $stmt->execute($params);
         
-            $sql = "UPDATE $table SET " . implode(',', $args) . " WHERE id = ?";
-        
-            $stmt = $this->conn->prepare($sql);
-        
-            if (!$stmt) {
-                die("Error in prepared statement: " . print_r($conn->errorInfo(), true));
-            }
+        return $result;
+    }
 
-            $params = array_values($data);
-            $params[] = $id;
-        
-            // Execute the prepared statement with the parameters
-            $result = $stmt->execute($params);
-        
-            return $result;
-        }
-
-            //methode d'affichage de tous les records
+    //methode d'affichage de tous les records
     public function readRecords($table) {
         $query = "SELECT * FROM $table;";
         $stmt = $this->conn->query($query);
@@ -86,6 +86,15 @@ class Crud{
         } else {
             return null;
         }
+    }
+
+    //methode de get count of a table
+    public function getTableCount($table){
+        $query = "SELECT COUNT(*) as count from $table;";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'];
     }
     
 

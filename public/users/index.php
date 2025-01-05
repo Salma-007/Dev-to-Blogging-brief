@@ -2,6 +2,21 @@
 // require_once dirname(__DIR__) . '/config/database.php';
 // require_once dirname(__DIR__) . '/config/functions.php';
 // require_once dirname(__DIR__) . '/includes/crud_functions.php';
+// require '/devblog brief/vendor/autoload.php';
+require '../../vendor/autoload.php';
+use App\User;
+use App\config\Database;
+use App\Crud;
+
+
+$conn = Database::connect();
+$crud = new Crud($conn);
+$user = new User();
+$top_users = $user->getTopAuthors($conn);
+$top_articles = $user->getTopArticles($conn);
+
+// var_dump($top_articles);
+
 
 // $mysqli = connect_db();
 // $articles = get_all_articles($mysqli);
@@ -44,13 +59,14 @@ $colors = [
     <title>DevBlog - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="./css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -59,7 +75,7 @@ $colors = [
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?php include './components/sidebar.php'; ?>
+    <?php include '../components/sidebar.php'; ?>
 
 
         <!-- Content Wrapper -->
@@ -68,7 +84,7 @@ $colors = [
             <!-- Main Content -->
             <div id="content">
 
-                <?php include 'components/topbar.php'; ?>
+                <?php include '../components/topbar.php'; ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -89,7 +105,7 @@ $colors = [
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Articles</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $crud->getTableCount('articles'); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-newspaper fa-2x text-gray-300"></i>
@@ -107,7 +123,7 @@ $colors = [
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Users</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $crud->getTableCount('users'); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -125,7 +141,7 @@ $colors = [
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tags
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $crud->getTableCount('tags'); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-tags fa-2x text-gray-300"></i>
@@ -142,7 +158,7 @@ $colors = [
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Categories</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $crud->getTableCount('categories'); ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-folder fa-2x text-gray-300"></i>
@@ -231,7 +247,7 @@ $colors = [
             </div>
         </div>
         <div class="card-body">
-            <?php foreach($top_articles as $index => $article): ?>
+        <?php foreach($top_articles as $index => $article): ?>
                 <div class="d-flex align-items-center mb-3">
                     <div class="mr-3">
                         <div class="icon-circle bg-success text-white">
@@ -388,7 +404,7 @@ $colors = [
             </div>
             <!-- End of Main Content -->
 
-            <?php include './components/footer.php'; ?>
+            <?php include '../components/footer.php'; ?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -422,21 +438,21 @@ $colors = [
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="./vendor/jquery/jquery.min.js"></script>
-    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="./js/sb-admin-2.min.js"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="./vendor/chart.js/Chart.min.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="./js/demo/chart-area-demo.js"></script>
-    <script src="./js/demo/chart-pie-demo.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
+    <script src="../js/demo/chart-pie-demo.js"></script>
         <!-- Initialize the pie chart -->
         <script>
     // Set new default font family and font color to mimic Bootstrap's default styling
@@ -488,12 +504,12 @@ $colors = [
     </script>
 
     <!-- Page level plugins -->
-    <script src="./vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="./vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 
     <!-- Page level custom scripts -->
-    <script src="./js/demo/datatables-demo.js"></script>
+    <script src="../js/demo/datatables-demo.js"></script>
     
 </body>
 

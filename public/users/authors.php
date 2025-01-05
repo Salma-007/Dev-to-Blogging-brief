@@ -260,7 +260,8 @@
                         // require_once __DIR__ . '/../../vendor/autoload.php';
                         use App\config\Database;
                         use App\User;
-                        require "../../vendor/autoload.php";
+                        require __DIR__ . '/../vendor/autoload.php';
+                        // print_r(__DIR__ . '/../vendor/autoload.php');
 
                         $conn = Database::connect();
                         $authors = new User(); 
@@ -292,8 +293,7 @@
                                             <td><?php  echo $auteur['username'];?></td>
                                             <td><?php  echo $auteur['email'];?></td>
                                             <td><a href="update-categorie.php?id_categorie=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-primary" >update</a></td>
-                                            <td><a href="controller-user.php?action=delete&id=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-danger">ban</a></td>
-                                            
+                                            <td><a href="controller-user.php?action=ban&id=<?php echo htmlspecialchars($auteur['id']); ?>" class="btn btn-danger">ban</a></td>
                                         </tr>
                                         <?php endforeach; ?>
                                     </tbody>
