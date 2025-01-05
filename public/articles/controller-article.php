@@ -33,6 +33,15 @@ if(isset($_GET['id']) && $_GET['action'] === 'delete'){
     exit();
 }
 
+// suppression d'un article
+if(isset($_GET['id']) && $_GET['action'] === 'deleteAdmin'){
+    $article = new Article(null,null,null,null,null,null,$_GET['id']);
+    $article->deletearticle($conn);
+    header('Location: /devblog brief/public/users/index.php'); 
+    exit();
+}
+
+
 // update article
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_article'])) {
     $tagss = $_POST['tags'];

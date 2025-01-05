@@ -250,7 +250,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Categories</h1> 
+                    <h1 class="h3 mb-2 text-gray-800">Authors</h1> 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -260,7 +260,7 @@
                         // require_once __DIR__ . '/../../vendor/autoload.php';
                         use App\config\Database;
                         use App\User;
-                        require __DIR__ . '/../vendor/autoload.php';
+                        require '../../vendor/autoload.php';
                         // print_r(__DIR__ . '/../vendor/autoload.php');
 
                         $conn = Database::connect();

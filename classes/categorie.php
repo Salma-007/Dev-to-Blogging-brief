@@ -2,6 +2,7 @@
 namespace App;
 require '../../vendor/autoload.php';
 use PDO;
+
 class Categorie{
     private $id;
     private $name;
@@ -71,7 +72,14 @@ class Categorie{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
+    // get categorie state for the dashboard
+    public function getCategoryStats($conn){
+        $sql = "SELECT COUNT(*) as article_count, categories.nom_category as category_name FROM articles JOIN categories ON articles.category_id = categories.id GROUP BY category_name;";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        return $result;
+    }
 
 }
 

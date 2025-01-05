@@ -1,13 +1,10 @@
 <?php
-// require_once dirname(__DIR__) . '/config/database.php';
-// require_once dirname(__DIR__) . '/config/functions.php';
-// require_once dirname(__DIR__) . '/includes/crud_functions.php';
-// require '/devblog brief/vendor/autoload.php';
 require '../../vendor/autoload.php';
 use App\User;
 use App\config\Database;
 use App\Crud;
 use App\Article;
+use App\Categorie;
 
 $conn = Database::connect();
 $crud = new Crud($conn);
@@ -16,15 +13,10 @@ $top_users = $user->getTopAuthors($conn);
 $top_articles = $user->getTopArticles($conn);
 $article = new Article();
 $articles = $article->getAllArticles();
-
+$categorie = new Categorie();
+$category_stats = $categorie->getCategoryStats($conn);
 // var_dump($top_articles);
 
-
-// $mysqli = connect_db();
-// $articles = get_all_articles($mysqli);
-// $category_stats = get_category_stats($mysqli);
-// $top_users = get_top_users($mysqli);
-// $top_articles = get_top_articles($mysqli);
 
 // Prepare data for the chart
 $categories = [];
@@ -41,10 +33,10 @@ $colors = [
     'rgb(244, 246, 249)'    // light
 ];
 
-// foreach ($category_stats as $stat) {
-//     $categories[] = $stat['category_name'];
-//     $counts[] = $stat['article_count'];
-// }
+foreach ($category_stats as $stat) {
+    $categories[] = $stat['category_name'];
+    $counts[] = $stat['article_count'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -385,7 +377,7 @@ $colors = [
                                                     class="btn btn-primary btn-sm">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <a href="/devblog brief/public/articles/controller-article.php?action=delete&id=<?= $article['id'] ?>" 
+                                                    <a href="/devblog brief/public/articles/controller-article.php?action=deleteAdmin&id=<?= $article['id'] ?>" 
                                                     class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
