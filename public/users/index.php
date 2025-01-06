@@ -18,6 +18,8 @@ use App\Categorie;
 $conn = Database::connect();
 $crud = new Crud($conn);
 $user = new User();
+$getuserCountArticle = User::getCountArticlebyAuthor($conn,$_SESSION['id']);
+// echo $getuserCountArticle;
 $top_users = $user->getTopAuthors($conn);
 $top_articles = $user->getTopArticles($conn);
 $article = new Article();
@@ -99,7 +101,7 @@ foreach ($category_stats as $stat) {
 
                     <!-- Content Row -->
                     <div class="row">
-
+                        
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -299,8 +301,8 @@ foreach ($category_stats as $stat) {
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Category Actions:</div>
-                                            <a class="dropdown-item" href="./entities/categories/categories.php">Manage Categories</a>
-                                            <a class="dropdown-item" href="./entities/categories/add-category.php">Add Category</a>
+                                            <a class="dropdown-item" href="/devblog brief/public/categories/list-categories.php">View all Categories</a>
+                                            <a class="dropdown-item" href="/devblog brief/public/categories/add-category.php">Add Category</a>
                                         </div>
                                     </div>
                                 </div>
@@ -456,53 +458,53 @@ foreach ($category_stats as $stat) {
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
         <!-- Initialize the pie chart -->
-        <script>
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
+    <script>
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
 
-    // Pie Chart
-    var ctx = document.getElementById("categoryPieChart");
-    var categoryPieChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: <?= json_encode($categories) ?>,
-            datasets: [{
-                data: <?= json_encode($counts) ?>,
-                backgroundColor: <?= json_encode(array_slice($colors, 0, count($categories))) ?>,
-                hoverBackgroundColor: <?= json_encode(array_slice($colors, 0, count($categories))) ?>,
-                hoverBorderColor: "rgba(234, 236, 244, 1)",
-            }],
-        },
-        options: {
-            maintainAspectRatio: false,
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
-                callbacks: {
-                    label: function(tooltipItem, data) {
-                        var dataset = data.datasets[tooltipItem.datasetIndex];
-                        var total = dataset.data.reduce(function(previousValue, currentValue) {
-                            return previousValue + currentValue;
-                        });
-                        var currentValue = dataset.data[tooltipItem.index];
-                        var percentage = Math.floor(((currentValue/total) * 100)+0.5);
-                        return data.labels[tooltipItem.index] + ': ' + currentValue + ' (' + percentage + '%)';
+        // Pie Chart
+        var ctx = document.getElementById("categoryPieChart");
+        var categoryPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: <?= json_encode($categories) ?>,
+                datasets: [{
+                    data: <?= json_encode($counts) ?>,
+                    backgroundColor: <?= json_encode(array_slice($colors, 0, count($categories))) ?>,
+                    hoverBackgroundColor: <?= json_encode(array_slice($colors, 0, count($categories))) ?>,
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var total = dataset.data.reduce(function(previousValue, currentValue) {
+                                return previousValue + currentValue;
+                            });
+                            var currentValue = dataset.data[tooltipItem.index];
+                            var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+                            return data.labels[tooltipItem.index] + ': ' + currentValue + ' (' + percentage + '%)';
+                        }
                     }
-                }
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
             },
-            legend: {
-                display: false
-            },
-            cutoutPercentage: 80,
-        },
-    });
+        });
     </script>
 
     <!-- Page level plugins -->

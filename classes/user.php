@@ -22,7 +22,7 @@ class User{
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
-        $this->crud  = new Crud($conn);
+        $this->crud = new Crud($conn);
     }
 
     public function setUsername($username){
@@ -119,7 +119,15 @@ class User{
         $stmt = $conn->prepare($sql);
         $stmt->execute(['username' => $this->username,'email' => $this->email, 'id' => $this->id]);
     }
-
+    
+    //get count articles by auteur
+    public static function getCountArticlebyAuthor($conn,$id){
+        $sql = "select count(*) as count from articles join users on articles.auteur_id = users.id where articles.auteur_id = :id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'];
+    }
 
 
 }

@@ -17,7 +17,7 @@ class Article{
     private $category_id;
     private $img;
     private $status;
-    private User $auteur;
+    private $auteur_id;
     private $created_at;
     private $updated_at;
     private $views;
@@ -32,7 +32,7 @@ class Article{
         $this->category_id = $category_id;
         // $this->img = $img;
         $this->status = $status;
-        // $this->auteur = $auteur;
+        // $this->auteur_id = $auteur;
         // $this->created_at = $created_at;
         $this->conn = Database::connect();
 
@@ -48,12 +48,22 @@ class Article{
         $this->title = $title;
     }
 
+    public function setAuteurID($id){
+        $this->auteur_id = $id;
+    }
+
     public function setSlug($slug){
         $this->slug = $slug;
     }
 
     public function getPublishedArticles($conn){
-        $query = "select title, content, featured_image from articles where status = 'accepted';";
+        $query = "select articles.id, title, content,users.username AS author_name, 
+                        categories.nom_category AS category_name, featured_image from articles 
+                        LEFT JOIN 
+                        users ON articles.auteur_id = users.id
+                    LEFT JOIN 
+                        categories ON articles.category_id = categories.id 
+                        where status = 'accepted';";
         $stmt = $this->conn->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -89,9 +99,9 @@ class Article{
 
     // methode d'ajout d'un article
     public function addArticle($conn){
-        $sql = "INSERT INTO articles (title, slug, content, meta_description, category_id, status) VALUES (:title, :slug, :content, :meta_description, :category_id, :status)";
+        $sql = "INSERT INTO articles (title, slug, content, meta_description, category_id, auteur_id, status) VALUES (:title, :slug, :content, :meta_description, :category_id, :auteur_id, :status)";
         $stmt = $conn->prepare($sql);
-        $stmt->execute(['title' => $this->title,'slug' => $this->slug, 'content' => $this->content,'meta_description' => $this->meta_description, 'category_id' => $this->category_id, 'status' => $this->status ]);
+        $stmt->execute(['title' => $this->title,'slug' => $this->slug, 'content' => $this->content,'meta_description' => $this->meta_description, 'category_id' => $this->category_id,'auteur_id' => $this->auteur_id, 'status' => 'pending' ]);
         return $lastId = $conn->lastInsertId();    
     }
 

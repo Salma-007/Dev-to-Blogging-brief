@@ -6,10 +6,11 @@
     <title>Articles Publiés</title>
     <!-- Inclure Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJxjz1hX9N4Ck9r5W9b9kA72KzTbgftAf0WPTvqC7s8mk2RU1f4X2hpPGl2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylecard.css">
 </head>
 <body>
     <div class="container my-5">
-    <?php include '../components/topbar.php'; ?>
+
         <h1 class="text-center mb-4">Articles Publiés</h1>
         <?php  
             require realpath(__DIR__.'/../vendor/autoload.php');
@@ -17,38 +18,28 @@
             use App\config\Database;
             $conn = Database::connect();
             $article = new Article();
-            $articles = $article->getPublishedArticles($conn);
+        $articles = $article->getPublishedArticles($conn);
         ?>
-        <?php foreach($articles as $article): ?>
-            <div class="row" style = "display: flex; gap: 20px; margin: 50px; flex-wrap: wrap;">
-                <div>article 1 </div>
-                <div>article 1 </div>
-                <div>article 1 </div>
-
-            </div>
-
-            <!-- <p class="text-center">Aucun article publié trouvé.</p> -->
-            <?php endforeach; ?>
     </div>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+    <div class="card-body">
+        <div class="row">
+            <?php foreach($articles as $article): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="path/to/article-image.jpg" class="card-img-top" alt="Article Image">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= htmlspecialchars($article['title']) ?></h5>
+                            <p class="card-text"><?= htmlspecialchars(substr($article['content'], 0, 100)) ?>...</p>
+                            <p class="text-muted">Par: <?= htmlspecialchars($article['author_name']) ?> | Catégorie: <?= htmlspecialchars($article['category_name']) ?></p>
+                            <a href="view-article.php?id=<?= $article['id'] ?>" class="btn btn-primary">Voir Plus</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/devblog brief/classes/logout.php">Logout</a>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
+</div>
+
 
         <!-- Bootstrap core JavaScript-->
         <script src="../vendor/jquery/jquery.min.js"></script>
