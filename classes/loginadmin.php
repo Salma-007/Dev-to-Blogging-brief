@@ -23,11 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
 
-            // Rediriger en fonction du rôle
-            if ($user['role'] === 'admin') {
-                header('Location: /devblog brief/public/users/index.php');
-                exit();
-            } elseif ($user['role'] === 'auteur') {
+            // Redirection en fonction du role
+            if ($user['role'] === 'admin' || $user['role'] === 'auteur') {
                 header('Location: /devblog brief/public/users/index.php');
                 exit();
             } else {
