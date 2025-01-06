@@ -16,30 +16,18 @@
             use App\config\Database;
             $conn = Database::connect();
             $article = new Article();
-            $result = $article->getPublishedArticles($conn);
+            $articles = $article->getPublishedArticles($conn);
         ?>
-        <?php if ($result->num_rows > 0): ?>
-            <div class="row">
-                <?php while($article = $result->fetch_assoc()): ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <?php if (!empty($article['image_url'])): ?>
-                                <img src="<?php echo $article['image_url']; ?>" class="card-img-top" alt="Image de l'article">
-                            <?php endif; ?>
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo htmlspecialchars($article['title']); ?></h5>
-                                <p class="card-text">
-                                    <?php echo htmlspecialchars(substr($article['content'], 0, 150)) . '...'; ?>
-                                </p>
-                                <a href="article.php?id=<?php echo $article['id']; ?>" class="btn btn-primary">Lire plus</a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
+        <?php foreach($articles as $article): ?>
+            <div class="row" style = "display: flex; gap: 20px; margin: 50px;">
+                <div>article 1 </div>
+                <div>article 1 </div>
+                <div>article 1 </div>
+
             </div>
-        <?php else: ?>
-            <p class="text-center">Aucun article publié trouvé.</p>
-        <?php endif; ?>
+
+            <!-- <p class="text-center">Aucun article publié trouvé.</p> -->
+            <?php endforeach; ?>
     </div>
 
     <!-- Inclure les scripts de Bootstrap -->

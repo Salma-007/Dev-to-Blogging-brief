@@ -1,6 +1,7 @@
 <?php
 namespace App;
-require '../../vendor/autoload.php';
+require realpath(__DIR__.'/../vendor/autoload.php');
+
 use App\Categorie;
 use App\User;
 use App\config\Database;
@@ -52,9 +53,10 @@ class Article{
     }
 
     public function getPublishedArticles($conn){
-        $query = "select title, content from articles status = 'accepted';";
-        $stmt = $conn->query($query);
-        return $stmt;
+        $query = "select title, content, featured_image from articles where status = 'accepted';";
+        $stmt = $this->conn->query($query);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public function getAllArticles(){

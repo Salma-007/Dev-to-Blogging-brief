@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header('Location: /devblog brief/public/users/index.php');
                 exit();
             } else {
-                header('Location: articles.php');
+                header('Location: /devblog brief/pages/all_articles.php');
                 exit();
             }
         } else {

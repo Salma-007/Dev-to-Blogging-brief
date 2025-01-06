@@ -1,4 +1,5 @@
-        <!-- Sidebar -->
+<?php session_start();?>
+<!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -40,11 +41,13 @@
                         <h6 class="collapse-header">Article Management:</h6>
                         <a class="collapse-item" href="/devblog brief/public/articles/list-articles.php">View Articles</a>
                         <a class="collapse-item" href="/devblog brief/public/articles/add-article.php">Add New Article</a>
+                        <?php if($_SESSION['role'] == 'admin'){?>
                         <a class="collapse-item" href="/devblog brief/public/articles/article-drafts.php">Pending Articles</a>
+                        <?php  }?>
                     </div>
                 </div>
             </li>
-
+            <?php if($_SESSION['role'] == 'admin'){?>
             <!-- Nav Item - Categories -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
@@ -100,8 +103,8 @@
                     </div>
                 </div>
             </li>
-
-
+            <?php  }?>
+               
             <!-- Divider -->
             <hr class="sidebar-divider">
 
