@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="stylecard.css">
 </head>
 <body>
+<!-- Header avec nom d'utilisateur et bouton de déconnexion -->
+<div class="container-fluid header-container">
+    <div class="header-info">
+        <div>
+            <h3>Hello, Salma</h3>
+        </div>
+        <div>
+            <a href="/devblog brief/classes/logout.php" class="btn logout-btn">logout</a>
+        </div>
+    </div>
+</div>
     <div class="container my-5">
 
         <h1 class="text-center mb-4">Articles Publiés</h1>
@@ -26,7 +37,7 @@
             <?php foreach($articles as $article): ?>
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="path/to/article-image.jpg" class="card-img-top" alt="Article Image">
+                        <img src="../public/articles/uploads/<?= htmlspecialchars($article['featured_image']) ?>" class="card-img-top" alt="Article Image">
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($article['title']) ?></h5>
                             <p class="card-text"><?= htmlspecialchars(substr($article['content'], 0, 100)) ?>...</p>

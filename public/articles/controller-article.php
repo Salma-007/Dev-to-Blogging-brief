@@ -9,10 +9,10 @@ $conn = Database::connect();
 // ajouter des articles
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_article'])) {
 
-    // $photo = $_FILES['photo_input']['name'];
-    // $photo_tmp = $_FILES['photo_input']['tmp_name'];
-    // $photo_folder = 'uploads/photos/' . $photo; 
-    // move_uploaded_file($photo_tmp, $photo_folder);
+    $photo = $_FILES['photo_input']['name'];
+    $photo_tmp = $_FILES['photo_input']['tmp_name'];
+    $photo_folder = 'uploads/' . $photo; 
+    move_uploaded_file($photo_tmp, $photo_folder);
 
     // var_dump($_POST['tags']);
     $tagss = $_POST['tags'];
@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_article'])) {
     $categorieID =  intval($_POST['category_name']) ;
     $article = new Article($_POST['article_name'], null, $_POST['description_article'], $_POST['article_meta_description'],$categorieID);
     $article->setAuteurID($_SESSION['id']);
+    $article->setImage($photo);
+    
     $article->create_slug($_POST['article_name']);
     // var_dump($sll);
     $id = $article->addArticle($conn);

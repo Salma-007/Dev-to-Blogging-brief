@@ -106,7 +106,7 @@ class User{
 
     //get top articles method
     public function getTopArticles($conn){
-        $sql = "select articles.id, created_at, title, users.username as author_name, views from articles join users on articles.auteur_id = users.id where status = 'accepted' order by views limit 3;";
+        $sql = "select articles.id, created_at, title, users.username as author_name, views from articles join users on articles.auteur_id = users.id where status = 'accepted' order by views desc limit 3;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchALL(PDO::FETCH_ASSOC);

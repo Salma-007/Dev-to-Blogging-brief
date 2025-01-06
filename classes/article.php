@@ -38,6 +38,10 @@ class Article{
 
     }
 
+    public function setImage($img){
+        $this->img = $img;
+    }
+
     public function getId(){
         return $this->id;
     }
@@ -99,9 +103,19 @@ class Article{
 
     // methode d'ajout d'un article
     public function addArticle($conn){
-        $sql = "INSERT INTO articles (title, slug, content, meta_description, category_id, auteur_id, status) VALUES (:title, :slug, :content, :meta_description, :category_id, :auteur_id, :status)";
+        $sql = "INSERT INTO articles (title, slug, content, meta_description, featured_image, category_id, auteur_id, status) VALUES (:title, :slug, :content, :meta_description, :featured_image, :category_id, :auteur_id, :status)";
         $stmt = $conn->prepare($sql);
-        $stmt->execute(['title' => $this->title,'slug' => $this->slug, 'content' => $this->content,'meta_description' => $this->meta_description, 'category_id' => $this->category_id,'auteur_id' => $this->auteur_id, 'status' => 'pending' ]);
+        $stmt->execute([
+            'title' => $this->title,
+            'slug' => $this->slug, 
+            'content' => $this->content,
+            'meta_description' => $this->meta_description,
+            'featured_image' => $this->img,  
+            'category_id' => $this->category_id,
+            'auteur_id' => $this->auteur_id, 
+            'status' => 'pending'
+        ]);
+        
         return $lastId = $conn->lastInsertId();    
     }
 

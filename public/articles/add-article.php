@@ -268,7 +268,7 @@
                             $categories = $categorie->getAllCategories($conn);
                             ?>
                         </div>
-                        <form method="POST" action="controller-article.php">
+                        <form method="POST" action="controller-article.php" enctype="multipart/form-data">
                             <label for="name">Titre :</label>
                             <input type="text" name="article_name" id="name" required>
                             <label for="name">Image :</label>
