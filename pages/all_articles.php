@@ -31,7 +31,7 @@
                             <h5 class="card-title"><?= htmlspecialchars($article['title']) ?></h5>
                             <p class="card-text"><?= htmlspecialchars(substr($article['content'], 0, 100)) ?>...</p>
                             <p class="text-muted">Par: <?= htmlspecialchars($article['author_name']) ?> | Catégorie: <?= htmlspecialchars($article['category_name']) ?></p>
-                            <a href="view-article.php?id=<?= $article['id'] ?>" class="btn btn-primary">Voir Plus</a>
+                            <a href="/devblog brief/public/articles/controller-article.php?action=voir&id=<?= $article['id'] ?>" class="btn btn-primary">Voir Plus</a>
                         </div>
                     </div>
                 </div>

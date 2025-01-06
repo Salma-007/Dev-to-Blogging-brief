@@ -190,7 +190,15 @@ class Article{
         $stmt = $conn->prepare($sql);
         $stmt->execute(['id' => $this->id]);
     }
-    
+
+    // methode  pour incrementer views
+    public function incrementViews($id) {
+        $query = "UPDATE articles 
+                 SET views = CASE WHEN views IS NOT NULL THEN views + 1 ELSE 1 END 
+                 WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $this->id]);
+    }
 
 
 
