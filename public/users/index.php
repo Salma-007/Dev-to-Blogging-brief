@@ -7,6 +7,9 @@ if (!isset($_SESSION['id']) ) {
     header('Location: /devblog brief/pages/login.php');
     exit();
 }
+if($_SESSION['role']== 'visitor'){
+    header('Location: /devblog brief/pages/all_articles.php');
+}
 
 require '../../vendor/autoload.php';
 use App\User;
@@ -345,7 +348,7 @@ foreach ($category_stats as $stat) {
     </div>
 </div>
 
-
+                        
                         <!-- Pie Chart -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
@@ -387,7 +390,12 @@ foreach ($category_stats as $stat) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
+                        <?php if($_SESSION['role'] == 'admin'){?>
                             <h6 class="m-0 font-weight-bold text-primary">Recent Articles</h6>
+                            <?php  }?>
+                            <?php if($_SESSION['role'] == 'auteur'){?>
+                            <h6 class="m-0 font-weight-bold text-warning">Pending Articles</h6>
+                            <?php  }?>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -460,6 +468,10 @@ foreach ($category_stats as $stat) {
                                     <?php  }?>
                                     <?php if($_SESSION['role'] == 'auteur'){?>
                                         <?php foreach($articlesbyAuthor as $article): ?>
+                                            <?php
+                                                $status = htmlspecialchars($article['status']);
+                                                if($status == 'pending'){
+                                                ?>
                                         <tr>
                                             <td>
                                                 <?= htmlspecialchars($article['title']) ?>
@@ -499,7 +511,7 @@ foreach ($category_stats as $stat) {
                                                 </div>
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php } endforeach; ?>
                                     <?php  }?>
                                     </tbody>
                                 </table>

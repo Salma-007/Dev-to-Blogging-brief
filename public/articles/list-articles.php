@@ -263,7 +263,8 @@ session_start();?>
                             require "../../vendor/autoload.php";
 
                             $article = new Article();
-                            $articles = $article->getAllArticlesByAuthor($_SESSION['id']);;
+                            $articles = $article->getAllArticlesByAuthor($_SESSION['id']);
+                            $articless = $article->getAllArticles();
                             
                             ?>
                         </div>
@@ -297,6 +298,69 @@ session_start();?>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    <?php if($_SESSION['role'] == 'admin'){?>
+                                    <?php foreach($articless as $article): ?>
+                                        <tr>
+                                            <td>
+                                                <?= htmlspecialchars($article['title']) ?>
+                                            </td>
+                                            <td><?= htmlspecialchars($article['author_name']) ?></td>
+                                            <td><?= htmlspecialchars($article['category_name']) ?></td>
+                                            <td>
+                                                <?php
+                                                if ($article['tags']) {
+                                                    $tags = explode(',', $article['tags']);
+                                                    foreach($tags as $tag) {
+                                                        echo '<span class="badge badge-primary mr-1">' . htmlspecialchars($tag) . '</span>';
+                                                    }
+                                                }
+                                                ?>
+                                            </td>
+                                            <td data-order="<?= $article['views'] ?>">
+                                                <?= number_format($article['views']) ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $status = htmlspecialchars($article['status']);
+                                                if ($status == 'pending') {
+                                                    $badgeClass = 'badge-warning'; // Yellow for pending
+                                                } elseif ($status == 'accepted') {
+                                                    $badgeClass = 'badge-success'; // Green for accepted
+                                                } elseif ($status == 'refused') {
+                                                    $badgeClass = 'badge-danger'; // Red for rejected
+                                                }
+                                                ?>
+                                                
+                                                <span class="badge <?= $badgeClass ?> mr-1"><?= $status ?></span>
+                                            </td>
+
+                                            <td data-order="<?= strtotime($article['created_at']) ?>">
+                                                <?= date('M d, Y H:i', strtotime($article['created_at'])) ?>
+                                            </td>
+                                            <td data-order="<?= strtotime($article['updated_at']) ?>">
+                                                <?= date('M d, Y H:i', strtotime($article['updated_at'])) ?>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="view-article.php?id=<?= $article['id'] ?>" 
+                                                    class="btn btn-info btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href="update-article.php?id=<?= $article['id'] ?>" 
+                                                    class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="controller-article.php?action=delete&id=<?= $article['id'] ?>" 
+                                                    class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                    
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    <?php  }?>
+                                    <?php if($_SESSION['role'] == 'auteur'){?>
                                     <?php foreach($articles as $article): ?>
                                         <tr>
                                             <td>
@@ -357,6 +421,7 @@ session_start();?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
+                                    <?php  }?>
                                     </tbody>
                                 </table>
                             </div>

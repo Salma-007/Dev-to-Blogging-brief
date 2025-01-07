@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../../vendor/autoload.php';
 use App\User;
 use App\config\Database;
@@ -33,7 +34,12 @@ if(isset($_GET['id']) && $_GET['action'] === 'ban'){
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
     $user = new User($_POST['username'], $_POST['email'],null,$_POST['id']);
     $user->updateUser($conn);
-    header('Location: authors.php'); 
+    if($_SESSION['role'] == 'admin'){
+        header('Location: authors.php'); 
+    }
+    else if($_SESSION['role'] == 'auteur'){
+        header('Location: /devblog brief/public/users/index.php'); 
+    }
     exit();
 }
 

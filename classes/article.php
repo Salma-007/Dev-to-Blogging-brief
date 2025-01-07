@@ -194,7 +194,9 @@ class Article{
         $sql = "SELECT 
                     articles.id, 
                     articles.title as title, 
+                    featured_image,
                     articles.content as content,
+                    users.username as author_name,
                     articles.meta_description as meta_description,
                     categories.nom_category AS category_name, 
                     GROUP_CONCAT(tags.nom_tag) AS tags
@@ -206,6 +208,7 @@ class Article{
                     article_tags ON articles.id = article_tags.article_id
                 LEFT JOIN 
                     tags ON article_tags.tag_id = tags.id
+                JOIN users on users.id = articles.auteur_id
                 where articles.id = :id
                 GROUP BY 
                     articles.id, articles.title, categories.nom_category ;";
