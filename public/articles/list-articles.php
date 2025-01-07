@@ -1,3 +1,5 @@
+<?php
+session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -261,7 +263,7 @@
                             require "../../vendor/autoload.php";
 
                             $article = new Article();
-                            $articles = $article->getAllArticles();
+                            $articles = $article->getAllArticlesByAuthor($_SESSION['id']);;
                             
                             ?>
                         </div>

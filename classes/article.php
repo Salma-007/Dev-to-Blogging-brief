@@ -101,6 +101,38 @@ class Article{
         return $result;
     }
 
+    //tout article par auteur
+    public function getAllArticlesByAuthor($id){
+        $query = "SELECT 
+                        articles.id, 
+                        articles.title, 
+                        users.username AS author_name, 
+                        categories.nom_category AS category_name, 
+                        GROUP_CONCAT(tags.nom_tag) AS tags, 
+                        status,
+                        articles.views, 
+                        articles.created_at,
+                        articles.updated_at
+                    FROM 
+                        articles 
+                    LEFT JOIN 
+                        users ON articles.auteur_id = users.id
+                    LEFT JOIN 
+                        categories ON articles.category_id = categories.id 
+                    LEFT JOIN 
+                        article_tags ON articles.id = article_tags.article_id
+                    LEFT JOIN 
+                        tags ON article_tags.tag_id = tags.id
+                    where users.id = :id
+                    GROUP BY 
+                        articles.id, articles.title, users.username, categories.nom_category, articles.views, articles.created_at";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+
     // methode d'ajout d'un article
     public function addArticle($conn){
         $sql = "INSERT INTO articles (title, slug, content, meta_description, featured_image, category_id, auteur_id, status) VALUES (:title, :slug, :content, :meta_description, :featured_image, :category_id, :auteur_id, :status)";

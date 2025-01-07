@@ -22,8 +22,11 @@ $getuserCountArticle = User::getCountArticlebyAuthor($conn,$_SESSION['id']);
 // echo $getuserCountArticle;
 $top_users = $user->getTopAuthors($conn);
 $top_articles = $user->getTopArticles($conn);
+$top_articles_byAuthor = $user->getTopArticlesbyAuthor($conn,$_SESSION['id']);
 $article = new Article();
 $articles = $article->getAllArticles();
+$articlesbyAuthor = $article->getAllArticlesByAuthor($_SESSION['id']);
+// var_dump($articlesbyAuthor);
 $categorie = new Categorie();
 $category_stats = $categorie->getCategoryStats($conn);
 // var_dump($top_articles);
@@ -101,7 +104,7 @@ foreach ($category_stats as $stat) {
 
                     <!-- Content Row -->
                     <div class="row">
-                        
+                    <?php if($_SESSION['role'] == 'admin'){?>
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -119,8 +122,28 @@ foreach ($category_stats as $stat) {
                                 </div>
                             </div>
                         </div>
-
+                        <?php  }?>
+                        <?php if($_SESSION['role'] == 'auteur'){?>
                         <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Mes Articles</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $getuserCountArticle; ?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-newspaper fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php  }?>
+                        <!-- Earnings (Monthly) Card Example -->
+                        <?php if($_SESSION['role'] == 'admin'){?>
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
@@ -137,7 +160,7 @@ foreach ($category_stats as $stat) {
                                 </div>
                             </div>
                         </div>
-
+                        <?php  }?>
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
@@ -182,6 +205,7 @@ foreach ($category_stats as $stat) {
 <!-- Content Column -->
 <div class="col-xl-8 col-lg-7">
     <!-- Top Authors Card -->
+    <?php if($_SESSION['role'] == 'admin'){?>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Top Authors</h6>
@@ -197,6 +221,7 @@ foreach ($category_stats as $stat) {
                 </div>
             </div>
         </div>
+        
         <div class="card-body">
             <?php foreach($top_users as $index => $user): ?>
                 <div class="d-flex align-items-center mb-3">
@@ -233,8 +258,9 @@ foreach ($category_stats as $stat) {
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+        
     </div>
-
+    <?php  }?>
     <!-- Top Articles Card -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -252,6 +278,7 @@ foreach ($category_stats as $stat) {
             </div>
         </div>
         <div class="card-body">
+        <?php if($_SESSION['role'] == 'admin'){?>
         <?php foreach($top_articles as $index => $article): ?>
                 <div class="d-flex align-items-center mb-3">
                     <div class="mr-3">
@@ -282,6 +309,39 @@ foreach ($category_stats as $stat) {
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+        <?php  }?>
+        <?php if($_SESSION['role'] == 'auteur'){?>
+            <?php foreach($articlesbyAuthor as $index => $article): ?>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-success text-white">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="small text-gray-500">
+                            Published <?= date('M d, Y', strtotime($article['created_at'])) ?>
+                            by <?= htmlspecialchars($article['author_name']) ?>
+                        </div>
+                        <div class="font-weight-bold"><?= htmlspecialchars($article['title']) ?></div>
+                        <div class="text-gray-800">
+                            <i class="fas fa-eye mr-1"></i>
+                            <?= number_format($article['views']) ?> views
+                        </div>
+                    </div>
+                    <div class="ml-2">
+                        <a href="./entities/articles/view-article.php?id=<?= $article['id'] ?>"
+                           class="btn btn-success btn-sm">
+                            Read Article
+                        </a>
+                    </div>
+                </div>
+                <?php if($index < count($top_articles) - 1): ?>
+                    <hr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+            <?php  }?>
     </div>
 </div>
 
@@ -355,6 +415,7 @@ foreach ($category_stats as $stat) {
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                    <?php if($_SESSION['role'] == 'admin'){?>
                                     <?php foreach($articles as $article): ?>
                                         <tr>
                                             <td>
@@ -396,6 +457,50 @@ foreach ($category_stats as $stat) {
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
+                                    <?php  }?>
+                                    <?php if($_SESSION['role'] == 'auteur'){?>
+                                        <?php foreach($articlesbyAuthor as $article): ?>
+                                        <tr>
+                                            <td>
+                                                <?= htmlspecialchars($article['title']) ?>
+                                            </td>
+                                            <td><?= htmlspecialchars($article['author_name']) ?></td>
+                                            <td><?= htmlspecialchars($article['category_name']) ?></td>
+                                            <td>
+                                                <?php
+                                                if ($article['tags']) {
+                                                    $tags = explode(',', $article['tags']);
+                                                    foreach($tags as $tag) {
+                                                        echo '<span class="badge badge-primary mr-1">' . htmlspecialchars($tag) . '</span>';
+                                                    }
+                                                }
+                                                ?>
+                                            </td>
+                                            <td data-order="<?= $article['views'] ?>">
+                                                <?= number_format($article['views']) ?>
+                                            </td>
+                                            <td data-order="<?= strtotime($article['created_at']) ?>">
+                                                <?= date('M d, Y H:i', strtotime($article['created_at'])) ?>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="view-article.php?id=<?= $article['id'] ?>" 
+                                                    class="btn btn-info btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href="/devblog brief/public/articles/update-article.php?id=<?= $article['id'] ?>" 
+                                                    class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a href="/devblog brief/public/articles/controller-article.php?action=deleteAdmin&id=<?= $article['id'] ?>" 
+                                                    class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    <?php  }?>
                                     </tbody>
                                 </table>
                             </div>
