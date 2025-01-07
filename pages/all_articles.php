@@ -1,3 +1,5 @@
+<?php
+session_start();?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,7 +15,7 @@
 <div class="container-fluid header-container">
     <div class="header-info">
         <div>
-            <h3>Hello, Salma</h3>
+            <h3>Hello, <?php echo $_SESSION['username']; ?></h3>
         </div>
         <div>
             <a href="/devblog brief/classes/logout.php" class="btn logout-btn">logout</a>

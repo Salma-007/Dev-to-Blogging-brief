@@ -1,6 +1,6 @@
 <?php
 namespace App;
-require '../../vendor/autoload.php';
+require realpath(__DIR__.'../../vendor/autoload.php');
 
 use App\config\Database;
 use App\Crud;
@@ -97,7 +97,7 @@ class User{
 
     // get top authors
     public function getTopAuthors($conn){
-        $sql = "select users.id as id, username, count(articles.id) as article_count, articles.views as total_views from users join articles on users.id = articles.auteur_id where role = 'auteur' GROUP BY users.id order by article_count limit 3;";
+        $sql = "select users.id as id, username, count(articles.id) as article_count, articles.views as total_views from users join articles on users.id = articles.auteur_id where role = 'auteur' GROUP BY users.id order by article_count desc limit 3;";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -128,6 +128,19 @@ class User{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'];
     }
+
+    //logout method
+    public static function logingout(){
+        session_start();
+        session_unset();  
+        session_destroy();  
+
+        header('Location: /devblog brief/pages/login.php');
+        exit();
+    }
+
+    //loging method
+    
 
 
 }

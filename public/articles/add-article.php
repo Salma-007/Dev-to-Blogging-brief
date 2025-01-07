@@ -288,6 +288,15 @@
                                 <input type="checkbox" id="tag<?= $index ?>" name="tags[]" value="<?= htmlspecialchars($tag['id']) ?>">
                                 <label for="tag<?= $index ?>"><?= htmlspecialchars($tag['nom_tag']) ?></label><br>
                             <?php endforeach; ?>
+                            <select name="artcltags" multiple id="artcltags">
+                            <option disabled selected>Select Tags</option>
+                                <?php
+                                foreach($tags as $tag): ?>
+                                <option value=<?= $tag["id"] ?>><?= $tag["nom_tag"] ?></option>
+                                <?php 
+                                endforeach;
+                                ?>
+                            </select>
                             </br><label for="name">meta description :</label>
                             <input type="text" name="article_meta_description" id="name" required>
                             <button type="submit" name="add_article">Ajouter</button>

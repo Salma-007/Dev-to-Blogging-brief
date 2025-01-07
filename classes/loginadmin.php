@@ -20,11 +20,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password_hash'])) {
 
             $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
 
-            // Redirection en fonction du role
-            if ($user['role'] === 'admin' || $user['role'] === 'auteur') {
+            // Redirection en fonction du rôle
+            if ($user['role'] === 'admin') {
+                header('Location: /devblog brief/public/users/index.php');
+                exit();
+            } else if ($user['role'] === 'auteur') {
                 header('Location: /devblog brief/public/users/index.php');
                 exit();
             } else {
