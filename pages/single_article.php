@@ -35,7 +35,9 @@ if (!$articleDetails) {
         <div class="col-md-12">
             <!-- Affichage de l'article -->
             <div class="card">
-                <img src="../public/articles/uploads/<?= htmlspecialchars($articleDetails[0]['featured_image']) ?>" class="card-img-top" style ="width:600px; margin: 0 auto;" alt="Image de l'article">
+                <div style="width:100%; height: 350px; ">
+                    <img src="../public/articles/uploads/<?= htmlspecialchars($articleDetails[0]['featured_image']) ?>" class="card-img-top" style ="width:100%; height: 100%; object-fit: cover; object-position: 0 100%;  margin: 0 auto;" alt="Image de l'article">
+                </div>
                 <div class="card-body">
                     <h1 class="card-title"><?= htmlspecialchars($articleDetails[0]['title']) ?></h1>
                     <p class="text-muted">Par: <?= htmlspecialchars($articleDetails[0]['author_name']) ?> | Catégorie: <?= htmlspecialchars($articleDetails[0]['category_name']) ?></p>

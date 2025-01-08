@@ -30,6 +30,9 @@ $article = new Article();
 $articles = $article->getAllArticles();
 $articlesbyAuthor = $article->getAllArticlesByAuthor($_SESSION['id']);
 $viewsbyAuthor = User::getViewsbyAuthor($conn,$_SESSION['id']);
+if(!$viewsbyAuthor){
+    $viewsbyAuthor = 0;
+}
 // var_dump($articlesbyAuthor);
 $categorie = new Categorie();
 $category_stats = $categorie->getCategoryStats($conn);
@@ -269,7 +272,7 @@ foreach ($category_stats as $stat) {
                         </div>
                     </div>
                     <div class="ml-2">
-                        <a href="./entities/users/user-profile.php?id=<?= $user['id'] ?>"
+                        <a href="/devblog brief/public/users/update-user.php?id=<?= $user['id'] ?>"
                            class="btn btn-primary btn-sm">
                             View Profile
                         </a>
