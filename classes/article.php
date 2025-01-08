@@ -62,12 +62,12 @@ class Article{
 
     public function getPublishedArticles($conn){
         $query = "select articles.id, title, content,users.username AS author_name, 
-                        categories.nom_category AS category_name, featured_image from articles 
+                        categories.nom_category AS category_name, featured_image, created_at from articles 
                         LEFT JOIN 
                         users ON articles.auteur_id = users.id
                     LEFT JOIN 
                         categories ON articles.category_id = categories.id 
-                        where status = 'accepted';";
+                        where status = 'accepted' order by created_at desc;";
         $stmt = $this->conn->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -197,6 +197,7 @@ class Article{
                     featured_image,
                     articles.content as content,
                     users.username as author_name,
+                    created_at,
                     articles.meta_description as meta_description,
                     categories.nom_category AS category_name, 
                     GROUP_CONCAT(tags.nom_tag) AS tags
@@ -248,6 +249,47 @@ class Article{
         $stmt = $this->conn->prepare($query);
         $stmt->execute(['id' => $this->id]);
     }
+
+    //date function
+    public static function nicetime($date)
+{
+    if(empty($date)) {
+        return "No date provided";
+    }
+    
+    $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
+    $lengths = array("60","60","24","7","4.35","12","10");
+    
+    $now = time();
+    $unix_date = strtotime($date);
+    
+       // check validity of date
+    if(empty($unix_date)) {    
+        return "Bad date";
+    }
+
+    // is it future date or past date
+    if($now > $unix_date) {    
+        $difference = $now - $unix_date;
+        $tense = "ago";
+        
+    } else {
+        $difference = $unix_date - $now;
+        $tense = "from now";
+    }
+    
+    for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
+        $difference /= $lengths[$j];
+    }
+    
+    $difference = round($difference);
+    
+    if($difference != 1) {
+        $periods[$j].= "s";
+    }
+    
+    return "$difference $periods[$j] {$tense}";
+}
 
 
 

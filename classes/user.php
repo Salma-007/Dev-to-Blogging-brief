@@ -157,7 +157,13 @@ class User{
         exit();
     }
 
-    //loging method
+    //is authenticate
+    public static function isloging(){
+        if(!isset($_SESSION['id'])){
+            header('location: /devblog%20brief/pages/login.php');
+        }
+
+    }
     
 
 

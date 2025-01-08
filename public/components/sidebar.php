@@ -43,7 +43,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Article Management:</h6>
                         <a class="collapse-item" href="/devblog brief/public/articles/list-articles.php">View Articles</a>
-                        <a class="collapse-item" href="/devblog brief/public/articles/add-article.php">Add New Article</a>
+                        <?php if($_SESSION['role'] == 'auteur'){?>
+                            <a class="collapse-item" href="/devblog brief/public/articles/add-article.php">Add New Article</a>
+                        <?php  }?>
                         <?php if($_SESSION['role'] == 'admin'){?>
                         <a class="collapse-item" href="/devblog brief/public/articles/article-drafts.php">Pending Articles</a>
                         <?php  }?>

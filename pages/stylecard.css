@@ -7,8 +7,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
+    background-color: #f9f9f9;  
+    color: #333;  
     line-height: 1.6;
 }
 
@@ -19,9 +19,8 @@ body {
     padding: 20px;
 }
 
-
 .topbar {
-    background-color: #fff;
+    background-color: #4b86b4; 
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: sticky;
@@ -33,22 +32,32 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .topbar .brand {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #333;
+    color: white;  
     text-decoration: none;
+    flex: 1;
+}
+
+.topbar .welcome {
+    color: white;
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-right: 20px;
 }
 
 .topbar .nav-links {
     display: flex;
-    gap: 15px;
+    gap: 20px;
+    align-items: center;
 }
 
 .topbar .nav-links a {
-    color: #333;
+    color: white;
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 5px;
@@ -56,12 +65,11 @@ body {
 }
 
 .topbar .nav-links a:hover {
-    background-color: #007bff;
-    color: white;
+    background-color: #3a6a8b;  
 }
 
 .topbar .logout-btn {
-    background-color: #dc3545;
+    background-color: #17a2b8; 
     color: white;
     padding: 8px 15px;
     border-radius: 5px;
@@ -70,8 +78,9 @@ body {
 }
 
 .topbar .logout-btn:hover {
-    background-color: #c82333;
+    background-color: #138496; 
 }
+
 
 .content-container {
     margin-top: 80px;
@@ -81,6 +90,7 @@ body {
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
+    color: #222222;  
     margin-bottom: 30px;
 }
 
@@ -94,16 +104,17 @@ body {
 
 .article-card {
     width: 30%;
-    background-color: #fff;
+    background-color: #ffffff;  
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;  
 }
 
 .article-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .article-image {
@@ -119,26 +130,26 @@ body {
 .article-title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #333;
+    color: #333;  
     margin-bottom: 10px;
 }
 
 .article-excerpt {
     font-size: 1rem;
-    color: #555;
+    color: #666;  
     margin-bottom: 15px;
 }
 
 .article-meta {
     font-size: 0.9rem;
-    color: #777;
+    color: #777;  
     margin-bottom: 15px;
 }
 
 .read-more-btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #17a2b8; 
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -146,7 +157,7 @@ body {
 }
 
 .read-more-btn:hover {
-    background-color: #0056b3;
+    background-color: #138496; 
 }
 
 
