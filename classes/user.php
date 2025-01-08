@@ -117,7 +117,7 @@ class User{
     public function getTopArticlesbyAuthor($conn,$id){
         $sql = "select articles.id, created_at, title, users.username as author_name, views from articles join users on articles.auteur_id = users.id where status = 'accepted' and users.id = :id order by views desc limit 3;";
         $stmt = $conn->prepare($sql);
-        $stmt->execute(['id' => $this->id]);
+        $stmt->execute(['id' => $id]);
         $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -136,6 +136,15 @@ class User{
         $stmt->execute(['id' => $id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'];
+    }
+
+    //get views by author id
+    public static function getViewsbyAuthor($conn, $id){
+        $sql = "select sum(views) as sommeViews from articles join users on articles.auteur_id = users.id where articles.auteur_id = :id;";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['sommeViews'];
     }
 
     //logout method

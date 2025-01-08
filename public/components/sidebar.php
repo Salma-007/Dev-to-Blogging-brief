@@ -10,7 +10,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-blog"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">DevBlog Admin</div>
+                <div class="sidebar-brand-text mx-3">DevBlog <?php echo $_SESSION['username']; ?></div>
             </a>
 
             <!-- Divider -->

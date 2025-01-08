@@ -47,7 +47,9 @@ body {
     padding: 20px;
     background-color: #fff;
 }
-
+.card-img-top{
+    width:600px
+}
 .card-title {
     font-size: 1.25rem;
     font-weight: bold;

@@ -342,7 +342,7 @@ session_start();?>
                                             </td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="view-article.php?id=<?= $article['id'] ?>" 
+                                                    <a href="/devblog brief/pages/single_article.php?id=<?= $article['id'] ?>" 
                                                     class="btn btn-info btn-sm">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
