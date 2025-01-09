@@ -283,21 +283,18 @@
                                     <option value="<?= htmlspecialchars($categorie['id']) ?>"><?= htmlspecialchars($categorie['nom_category']) ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <label for="name">Tags :</label>
+                            </br><label for="name">Tags :</label>
+                            <div class="tagsss">
+                            
                             <?php foreach ($tags as $index => $tag): ?>
+                                <div>
                                 <input type="checkbox" id="tag<?= $index ?>" name="tags[]" value="<?= htmlspecialchars($tag['id']) ?>">
                                 <label for="tag<?= $index ?>"><?= htmlspecialchars($tag['nom_tag']) ?></label><br>
+                                </div>
+                                
                             <?php endforeach; ?>
-                            <select name="artcltags" multiple id="artcltags">
-                            <option disabled selected>Select Tags</option>
-                                <?php
-                                foreach($tags as $tag): ?>
-                                <option value=<?= $tag["id"] ?>><?= $tag["nom_tag"] ?></option>
-                                <?php 
-                                endforeach;
-                                ?>
-                            </select>
-                            </br><label for="name">meta description :</label>
+                            </div>
+                            <label for="name">meta description :</label>
                             <input type="text" name="article_meta_description" id="name" required>
                             <button type="submit" name="add_article">Ajouter</button>
                     </form>

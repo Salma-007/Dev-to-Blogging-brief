@@ -41,9 +41,9 @@
         <input type="text" id="search" placeholder="Search...">
         <h1 class="title">Recents Articles</h1>
 
-        <div class="articles">
-            
-        </div>
+            <div class="articles">
+                
+            </div>
     </div>
 
     <script>

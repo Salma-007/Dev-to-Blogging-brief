@@ -164,6 +164,22 @@ class User{
         }
 
     }
+
+    //methods for validation
+    public static function validate_email($email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+    public static function validate_password($password) {
+        // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
+        return strlen($password) >= 8 &&
+               preg_match('/[A-Z]/', $password) &&
+               preg_match('/[a-z]/', $password) &&
+               preg_match('/[0-9]/', $password);
+    }
+    public static function validate_username($username) {
+        // 3-20 characters, letters, numbers, underscores
+        return preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username);
+    }
     
 
 

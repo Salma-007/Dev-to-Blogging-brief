@@ -11,7 +11,6 @@ if (isset($_POST['search'])) {
         $search = $_POST['search']; 
         $articles = $article->searchbyTitle($search); 
     } else {
-    
         $articles = $article->getPublishedArticles($conn);
     }
 }
