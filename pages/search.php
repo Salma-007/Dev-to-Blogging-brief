@@ -17,7 +17,7 @@ if (isset($_POST['search'])) {
 
 
 foreach ($articles as $article) {
-    $date = Article::nicetime(date('d M, Y', strtotime($article['created_at'])));
+    $date = Article::nicetime(date('d M, Y', strtotime($article['updated_at'])));
     ?>
     <div class="article-card">
         <img src="../public/articles/uploads/<?= htmlspecialchars($article['featured_image']) ?>" alt="Article Image" class="article-image">

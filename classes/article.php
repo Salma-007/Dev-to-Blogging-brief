@@ -62,7 +62,7 @@ class Article{
 
     public function getPublishedArticles($conn){
         $query = "select articles.id, title, content,users.username AS author_name, 
-                        categories.nom_category AS category_name, featured_image, created_at from articles 
+                        categories.nom_category AS category_name, featured_image, updated_at from articles 
                         LEFT JOIN 
                         users ON articles.auteur_id = users.id
                     LEFT JOIN 
@@ -294,7 +294,7 @@ class Article{
     public function searchbyTitle($title){
         // $sql = "select * from articles where title like '%:title%' limit 3";
         $sql = "select articles.id, title, content,users.username AS author_name, 
-                        categories.nom_category AS category_name, featured_image, created_at from articles 
+                        categories.nom_category AS category_name, featured_image, updated_at from articles 
                         LEFT JOIN 
                         users ON articles.auteur_id = users.id
                     LEFT JOIN 

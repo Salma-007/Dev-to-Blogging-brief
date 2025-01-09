@@ -8,9 +8,16 @@ $conn = Database::connect();
 
 // add user
 if ($_SERVER['REQUEST_METHOD'] === 'POST'&& isset($_POST['register_user'])) {
-    $user = new User($_POST['username'], $_POST['email'], $_POST['pswd'], null, 'visitor');
-    $user->insertUser($conn);
-    header('Location: /devblog brief/pages/login.php'); 
+    // $user = new User($_POST['username'], $_POST['email'], $_POST['pswd'], null, 'visitor');
+    $user = new User();
+    $queryy = $user->registerVisitor($_POST['username'],$_POST['email'],$_POST['pswd'],$conn);
+    if(!empty($queryy)){
+        header('Location: /devblog brief/pages/login.php'); 
+    }
+    else{
+        header('Location: /devblog brief/pages/login.php'); 
+    }
+    
     exit();
 }
 

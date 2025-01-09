@@ -61,6 +61,18 @@ class User{
         
     }
 
+    //register methode avec validation
+    public function registerVisitor($username, $email, $password, $conn){
+        if( self::validate_username($username) && self::validate_password($password) && self::validate_email($email)){
+            $sql = "insert into users (username, email, password_hash, role) values (:username, :email, :password_hash, 'visitor')";
+            $stmt= $conn->prepare($sql);
+            $stmt->execute(['username' => $username,'email' => $email,'password_hash' => password_hash($password, PASSWORD_DEFAULT)]);
+            return $lastId = $conn->lastInsertId();
+        }
+        
+
+    }
+
     // get all authors
     public function getAuthors($conn){
         $sql = "SELECT * from users where role = 'auteur';";
@@ -88,6 +100,7 @@ class User{
         $sql = "UPDATE users SET role = 'auteur' WHERE id = :id;";
         $stmt = $conn->prepare($sql);
         $stmt->execute(['id' => $this->id]);
+        
     }
 
     //ban user
