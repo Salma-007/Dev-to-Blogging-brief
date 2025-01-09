@@ -251,8 +251,7 @@ class Article{
     }
 
     //date function
-    public static function nicetime($date)
-{
+    public static function nicetime($date){
     if(empty($date)) {
         return "No date provided";
     }
@@ -291,6 +290,21 @@ class Article{
     return "$difference $periods[$j] {$tense}";
 }
 
+    //search an article by title
+    public function searchbyTitle($title){
+        // $sql = "select * from articles where title like '%:title%' limit 3";
+        $sql = "select articles.id, title, content,users.username AS author_name, 
+                        categories.nom_category AS category_name, featured_image, created_at from articles 
+                        LEFT JOIN 
+                        users ON articles.auteur_id = users.id
+                    LEFT JOIN 
+                        categories ON articles.category_id = categories.id 
+                        where status = 'accepted' and title like '%$title%' order by created_at desc limit 3;";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 
 
 }

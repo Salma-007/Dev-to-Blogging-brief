@@ -1,6 +1,6 @@
 <?php
 namespace App;
-require '../../vendor/autoload.php';
+require realpath(__DIR__.'/../vendor/autoload.php');
 use App\config\Database;
 $conn = Database::connect();
 use PDO;

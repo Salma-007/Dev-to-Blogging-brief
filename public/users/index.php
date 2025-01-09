@@ -2,15 +2,14 @@
 
 session_start();
 
-// Verfiy the connected user
-// if (!isset($_SESSION['id']) ) {
-//     header('Location: /devblog brief/pages/login.php');
-//     exit();
-// }
-// if($_SESSION['role']== 'visitor'){
-//     header('Location: /devblog brief/pages/all_articles.php');
-// }
-
+//Verfiy the connected user
+if (!isset($_SESSION['id']) ) {
+    header('Location: /devblog brief/pages/login.php');
+    exit();
+}
+if($_SESSION['role']== 'visitor'){
+    header('Location: /devblog brief/pages/all_articles.php');
+}
 
 
 require '../../vendor/autoload.php';
