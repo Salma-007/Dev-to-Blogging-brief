@@ -256,8 +256,8 @@ foreach ($category_stats as $stat) {
                 <div class="d-flex align-items-center mb-3">
                     <div class="mr-3">
                         <div class="icon-circle bg-primary text-white">
-                            <?php if($user['profile_picture_url']): ?>
-                                <img src="<?= htmlspecialchars($user['profile_picture_url']) ?>" 
+                            <?php if($user['picture']): ?>
+                                <img src="<?= htmlspecialchars($user['picture']) ?>" 
                                      class="rounded-circle" 
                                      style="width: 40px; height: 40px; object-fit: cover;"
                                      alt="<?= htmlspecialchars($user['username']) ?>">

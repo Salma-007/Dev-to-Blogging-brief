@@ -62,7 +62,7 @@ User::isloging();
                         <p><?php echo $date; ?> </p>
                         <p class="article-excerpt"><?= htmlspecialchars(substr($article['content'], 0, 100)) ?>...</p>
                         <p class="article-meta">By: <?= htmlspecialchars($article['author_name']) ?> | Category: <?= htmlspecialchars($article['category_name']) ?></p>
-                        <a href="/devblog%20brief/pages/single_article.php?id=<?= $article['id'] ?>" class="btn read-more-btn">See more</a>
+                        <a href="/devblog brief/public/articles/controller-article.php?action=voir&id=<?= $article['id'] ?>" class="btn read-more-btn">See more</a>
                     </div>
                 </div>
             <?php endforeach; ?>

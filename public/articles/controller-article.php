@@ -46,7 +46,7 @@ if(isset($_GET['id']) && $_GET['action'] === 'delete'){
 if(isset($_GET['id']) && $_GET['action'] === 'voir'){
     $article = new Article(null,null,null,null,null,null,$_GET['id']);
     $article->incrementViews($_GET['id']);
-    header('Location:/devblog brief/pages/all_articles.php'); 
+    header('Location:/devblog%20brief/pages/single_article.php?id='.$_GET['id']); 
     exit();
 }
 
