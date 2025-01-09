@@ -275,7 +275,7 @@ class Article{
     } else {
         $difference = $unix_date - $now;
         $tense = "from now";
-    }
+    }  
     
     for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
         $difference /= $lengths[$j];
