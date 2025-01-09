@@ -14,9 +14,11 @@ class User{
     private $crud;
     private $role;
     private $table = 'users';
+    private $connn;
 
     public function __construct($username = null, $email = null, $password = null, $id = -1, $role = 'visitor'){
         $conn = Database::connect();
+        $this->connn = Database::connect();
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
@@ -194,6 +196,45 @@ class User{
         return preg_match('/^[a-zA-Z0-9_]{3,20}$/', $username);
     }
     
+    //login method
+    public function loginUser($email, $password) {
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->connn->prepare($sql);
+        $stmt->execute(['email' => $email]);
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            // Verify password
+            if (password_verify($password, $user['password_hash'])) {
+
+                $_SESSION['id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['role'] = $user['role'];
+
+                // Redirect based on user role
+                if ($user['role'] === 'admin') {
+                    header('Location: /devblog brief/public/users/index.php');
+                    exit();
+                } else if ($user['role'] === 'auteur') {
+                    header('Location: /devblog brief/public/users/index.php');
+                    exit();
+                } else {
+                    header('Location: /devblog brief/pages/all_articles.php');
+                    exit();
+                }
+            } else {
+
+                header("Location: ../pages/login.php?error=true");
+                exit();
+            }
+        } else {
+
+            header("Location: ../pages/login.php?error=true");
+            exit();
+        }
+    }
 
 
 }
